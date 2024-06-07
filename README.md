@@ -11,9 +11,9 @@ Clausen Talk 1 - Monday afternoon
 Clausen Talk 2 - Wednesday afternoon  
 Clausen Talk 3 - Thursday afternoon  
 Clausen Talk 4 - Friday morning  
-Nikolaus Talk 1 - Tuesday morning: Claudius 
-Nikolaus Talk 2 - Wednesday afternoon: Claudius
-Nikolaus Talk 3 - Thursday afternoon: Claudius
+Nikolaus Talk 1 - Tuesday morning: Claudius  
+Nikolaus Talk 2 - Wednesday afternoon: Claudius  
+Nikolaus Talk 3 - Thursday afternoon: Claudius  
 ## Cleaning-up
 Everyone is welcome to clean up the details of a lecture, but I recommend that you talk to the live-Texer before suggesting an update.
 ## How can I join?
