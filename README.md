@@ -3,14 +3,14 @@ This file collects the distribution of workload for the volunteers of live LaTeX
 ## Distribution of workload
 Efimov Talk 1 - Monday morning:  Branko  
 Efimov Talk 2 - Monday afternoon:  Vignesh  
-Efimov Talk 3 - Tuesday morning:  Bai  
+Efimov Talk 3 - Tuesday morning:  Vova    
 Efimov Talk 4 - Wednesday morning:  
 Efimov Talk 5 - Thursday morning:  
 Efimov Talk 6 - Friday morning:  
-Clausen Talk 1 - Monday afternoon  Vignesh  
-Clausen Talk 2 - Wednesday afternoon  Sophus  
-Clausen Talk 3 - Thursday afternoon  
-Clausen Talk 4 - Friday morning  
+Clausen Talk 1 - Monday afternoon:  Vignesh  
+Clausen Talk 2 - Wednesday afternoon:  Sophus  
+Clausen Talk 3 - Thursday afternoon:  
+Clausen Talk 4 - Friday morning:  
 Nikolaus Talk 1 - Tuesday morning: Claudius  
 Nikolaus Talk 2 - Wednesday afternoon: Claudius  
 Nikolaus Talk 3 - Thursday afternoon: Claudius  
