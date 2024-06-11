@@ -557,7 +557,7 @@ u \to y\oplus z \to v.
 \end{prop}
 
 \begin{cor}
-$K_i(\prod_i \cat T_i)\isoto \prod_i K_0(\cat T_i)$.
+$K_0(\prod_i \cat T_i)\isoto \prod_i K_0(\cat T_i)$.
 \end{cor}
 
 \textbf{Step 2:} We have a short exact sequence
@@ -630,7 +630,7 @@ where the first map is induced by the maps $\psi_{n+1} \to \psi_n$. We compute
 \end{proof}
 
 \begin{cor}
-Let $\cat B_0\from \cat B_1 \from \cat B_2 \from \dotsb$ be an inverse sequence in $\Cat^{\mathrm{perf}}$ such that $\cat B_{n+1} \to \cat b_n$ has a fully faithful right adjoint. Then 
+Let $\cat B_0\from \cat B_1 \from \cat B_2 \from \dotsb$ be an inverse system in $\Cat^{\mathrm{perf}}$ such that $\cat B_{n+1} \to \cat B_n$ has a fully faithful right adjoint. Then 
 \[
 K_0(\varprojlim_n \cat B_n) = \varprojlim_n K_0(\cat B_n).
 \]
@@ -661,7 +661,7 @@ Recall the functor $G\colon \cat B^\omega \to \cat A^\omega$ from the above. The
 
 \begin{thm}
 \begin{enumerate}[(1)]
-\item Let $F,G\colon \Cat^{\mathrm{perf}} \to \cat E$ be accessible localizing invariants and let $\varphi\colon F\to G$ be map and suppose that $\cat E$ has a non-degenerate t-structure. Suppose moreover that $\pi_0\varphi\colon \pi_0F \to \pi_0G$ is an isomorphism.
+\item Let $F,G\colon \Cat^{\mathrm{perf}} \to \cat E$ be accessible localizing invariants, let $\varphi\colon F\to G$ be map, and suppose that $\cat E$ has a non-degenerate t-structure. Suppose moreover that the induced map $\pi_0\varphi\colon \pi_0F \to \pi_0G$ on connected components is an isomorphism.
 
 Then $\varphi\colon F\isoto G$ is an isomorphism.
 
@@ -673,7 +673,7 @@ For the proof that (1)$\implies$(2) we need to show: for any set $I$, the map
 \[
 K\Bigl(\prod_I \cat C\Bigr) \xto{\varphi} \prod_IK(\cat C)
 \]
-is an isomorphism. Observe that the source and target are localizing invariants and $\pi_0\varphi$ is an isomorphism.
+is an isomorphism. Observe that the source and target are localizing invariants in $\cat C$ and $\pi_0\varphi$ is an isomorphism.
 
 It remains to prove (1). The fact that $\pi_0\varphi$ is an isomorphism implies that $\pi_n\varphi$ is an isomorphism for $n\le 0$. Now, consider the resolution
 \[
@@ -712,9 +712,9 @@ Then $F^{\mathrm{cont}}(\Shv(X;\cat C)) = F^{\mathrm{cont}}(\cat C)^X$, where th
 
 Observe that for all finite CW complexes $Y$ we have an isomorphism
 \[
-F^{\mathrm{cont}}(\Shv(Y\times [0,1], \cat C)) \isoto F^{\mathrm{cont}}(\Shv(Y; \cat C)).
+F^{\mathrm{cont}}(\Shv(Y\times [0,1]; \cat C)) \isoto F^{\mathrm{cont}}(\Shv(Y; \cat C)).
 \]
-we get a functor $G\colon (S^{\mathrm{fin}})^\op \to \cat E$ such that if $X$ is a finite CW complex, then $G(X) = F^{\mathrm{cont}}(\Shv(X;\cat C))$. We know $G(*) = F^{\mathrm{cont}}(\cat C)$ and $G(\emptyset) = 0$.
+We get a functor $G\colon (S^{\mathrm{fin}})^\op \to \cat E$ such that $G(X) = F^{\mathrm{cont}}(\Shv(X;\cat C))$ for any finite CW complex $X$. We know $G(*) = F^{\mathrm{cont}}(\cat C)$ and $G(\emptyset) = 0$.
 
 We need to show that $G$ commutes with pullbacks. Consider a cellular embedding $X\injto Y$ of finite CW complexes, and let $X\to Z$ be some continuous map of finite CW complexes. Then we have a commutative diagram
 \[
