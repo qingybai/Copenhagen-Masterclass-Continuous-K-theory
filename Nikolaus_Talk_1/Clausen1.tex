@@ -1,0 +1,274 @@
+\documentclass[draft]{amsart}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{tikz-cd}
+\usepackage{stmaryrd} % \mapsfrom
+\usepackage[shortlabels]{enumitem}
+\usepackage{geometry}
+\usepackage[final,kerning,spacing]{microtype}\frenchspacing
+\usepackage{csquotes}
+\usepackage[final]{hyperref}
+\usepackage[capitalize]{cleveref}
+\usepackage[inline]{showlabels}
+
+\newcommand{\todo}[1]{\textcolor{red}{TODO: #1}}
+
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\FF}{\mathbb{F}}
+\renewcommand{\AA}{\mathbb{A}}
+\newcommand{\GG}{\mathbb{G}}
+\newcommand{\PP}{\mathbb{P}}
+
+\renewcommand{\H}{\mathrm{H}}
+\newcommand{\D}{\mathrm{D}}
+\newcommand{\R}{\mathrm{R}}
+\renewcommand{\O}{\mathcal{O}}
+
+\newcommand{\set}[2]{\left\{#1\,\middle|\,#2\right\}}
+\newcommand{\ol}[1]{\overline{#1}}
+\newcommand{\ul}[1]{\underline{#1}}
+\newcommand{\wh}[1]{\widehat{#1}}
+\newcommand{\wt}[1]{\widetilde{#1}}
+\newcommand{\cat}[1]{\mathcal{#1}}
+\newcommand{\sheaf}[1]{\mathcal{#1}}
+
+\renewcommand{\setminus}{\smallsetminus}
+\renewcommand{\emptyset}{\vanothing}
+\newcommand{\ssubset}{\Subset} 
+\newcommand{\ssupset}{\Supset} 
+\newcommand{\op}{\mathrm{op}}
+
+\newcommand{\too}{\longrightarrow}
+\newcommand{\xto}[1]{\mathbin{\xrightarrow{#1}}}
+\newcommand{\isoto}{\mathbin{\xrightarrow{\sim}}}
+\newcommand{\injto}{\mathbin{\hookrightarrow}}
+\newcommand{\injtoo}{\mathbin{\longhookrightarrow}}
+\newcommand{\epito}{\mathbin{\to\kern-.8em\to}}
+\newcommand{\epitoo}{\mathbin{\too\kern-.8em\to}}
+
+\renewcommand{\Pr}{\mathrm{Pr}}
+\newcommand{\Stab}{\mathrm{Stab}}
+
+\newcommand{\blank}{-} % todo
+
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\fib}{fib}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Spa}{Spa}
+\DeclareMathOperator{\dlog}{dlog}
+\DeclareMathOperator{\SingularSupport}{SS}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\Map}{Map}
+\DeclareMathOperator{\Open}{Open}
+\DeclareMathOperator{\Seminorm}{Seminorm}
+\DeclareMathOperator{\Shv}{Shv}
+\DeclareMathOperator{\Nuc}{Nuc}
+\DeclareMathOperator{\Cat}{Cat}
+\DeclareMathOperator{\CompAss}{CompAss}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\Fun}{Fun}
+\DeclareMathOperator{\Mod}{Mod}
+\DeclareMathOperator{\Perf}{Perf}
+\DeclareMathOperator{\CompHaus}{CompHaus}
+\DeclareMathOperator{\Spf}{Spf}
+\DeclareMathOperator{\PSh}{PSh}
+\DeclareMathOperator{\Corr}{Corr}
+\DeclareMathOperator{\Pro}{Pro}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\Tate}{Tate}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Vect}{Vect}
+\DeclareMathOperator{\Spv}{Spv}
+\DeclareMathOperator{\Calk}{Calk}
+\DeclareMathOperator{\QCoh}{QCoh}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator*{\indinjlim}{\text{``}\varinjlim\text{''}} % todo
+\DeclareMathOperator*{\indprojlim}{\text{``}\varprojlim\text{''}} % todo
+\DeclareMathOperator*{\colim}{colim}
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{fact}[thm]{Fact}
+\newtheorem{ex}[thm]{Example}
+\newtheorem{exercise}[thm]{Exercise}
+\newtheorem{warning}[thm]{Warning}
+\newtheorem*{claim}{Claim}
+\newtheorem*{notation}{Notation}
+
+\begin{document}
+\title{Three persectives on Deligne cohomology}
+\author{Dustin Clausen}
+\maketitle
+\tableofcontents
+
+
+\section{Talk 1}
+
+Deligne cohomology is a cohomology theory for complex manifolds which refines the usual singular/sheaf cohomology $\H^*(M;\ZZ)$ by including some differential form data.
+
+\subsection{Motivation}
+Let $V$ be a holomorphic vector bundle over a complex manifold $M$. Then we get a complex topological vector bundle on the topological space $M$, hence a Chern class $c_p(V) \in \H^{2p}(M;\ZZ)$.
+
+We want refined coefficients $\ZZ(p)_{\D}$ which maps to $\ZZ$ such that $c_p(V) \in \H^{2p}(M;\ZZ)$ functorially (with respect to pullback of vector bundles) lifts to $\H^{2p}(M; \ZZ(p)_{\D})$.
+
+\begin{rem}
+Why do the coefficients depend on $p$? Note that $c_1(\sheaf L) \in \H^{2}(M;\ZZ)$, where $\ZZ$ should be identified with $\H_1(\CC^\times; \ZZ) \cong 2\pi i\ZZ \subseteq \CC$.
+
+Similarly, we should have $c_p(V) \in \H^{2p}(M; (2\pi i)^{p}\ZZ)$.
+\end{rem}
+
+To define $\ZZ(p)_{\D}$, let us look at first Chern classes:
+\[
+c_1(V) = c_1(\det(V)).
+\]
+One description is the following: The short exact sequence
+\[
+0\to 2\pi i\ZZ \to \O \xrightarrow{\exp} \O^\times \to 1.
+\]
+gives a map $\H^1(M;\O^\times) \to \H^2(M;2\pi i\ZZ)$. This suggests setting
+\[
+\ZZ(1)_{\D} = \O^\times[-1].
+\]
+
+\textbf{Reinterpretation:} We have a homotopy pullback (because the cofibers on both horizontal maps identify with $\O$):
+\[
+\begin{tikzcd}
+\O^\times{[-1]} \ar[r,"\partial"] \ar[d,"\dlog(f) = \frac{\mathrm{d} f}{f}"'] & 2\pi i\ZZ \ar[d] \\
+{[0\to \Omega^1\to \Omega^2\to\dotsb]} \ar[r] & {[\Omega^0 \to \Omega^1 \to \dotsb]}
+\end{tikzcd}
+\]
+where $\Omega_{\mathrm{dR}} \coloneqq (\Omega^\bullet,d)$ is the holomorphic de\,Rham complex.
+
+\begin{defn}
+For $p\in \ZZ$, $p\ge0$, define
+\[
+\begin{tikzcd}
+\ZZ(p)_{\D} \ar[d] \ar[dr,phantom, very near start, "\lrcorner"] \ar[r] & (2\pi i)^p\ZZ \ar[d] \\
+F^p\Omega_{\mathrm{dR}} = {[0\to \dotsb\to 0\to \Omega^p\to \Omega^{p+1}\to \dotsb]} \ar[r] & {[\Omega^0\to \Omega^1\to\dotsb]} = \Omega_{\mathrm{dR}},
+\end{tikzcd}
+\]
+where on the left $\Omega^p$ sits in homological degree $-p$.
+\end{defn}
+
+\begin{ex}
+\begin{enumerate}[(i)]
+\item $\ZZ(0)_{\D} = \ZZ$;
+\item $\ZZ(1)_{\D} = \O^\times[-1]$, which implies that there is a tautological Chern class $c_1(\sheaf L) \in \H^2(M; \ZZ(1)_{\D})$.
+
+\item $\bigoplus_p \ZZ(p)_{\D}$ is a graded commutative ring, i.e., there is a map $\ZZ(p)_\D \otimes \ZZ(q)_{\D} \to \ZZ(p+q)_{\D}$.
+
+\item Pullback functoriality: for each $M\to N$ there is a map $\H^*(N; \ZZ(p)_{\D}) \to \H^*(M;\ZZ(p)_{\D})$.
+
+\item Projective bundle formula: Let $V \to M$ be a vector bundle of dimension $d$ and consider its projectivization $\PP(V) \to M$. Then
+\[
+\bigoplus_p\R\Gamma(\PP(V); \ZZ(p)_{\D})
+\]
+is graded free of rank $d$ over $\bigoplus_p \R\Gamma(M;\ZZ(p)_{\D})$ on $1, c_1(\O(1)), \dotsc, c_1(\O(1))^{d-1}$.
+
+By Grothendieck, we can expand $c_1(\O(1))^d$ in terms of previous powers, and the coefficients define the higher Chern classes $c_p(V) \in \H^{2p}(M; \ZZ(p)_{\D})$.
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+If $p\le 0$, then $\ZZ(p)_{\D} = (2\pi i)^p\ZZ$, which is \enquote{purely topological}.
+
+If $p>\dim M$, then $\ZZ(p)_{\D} = \CC/(2\pi i)^p \ZZ[-1]$.
+\end{ex}
+
+\begin{rem}
+Let $M$ be Stein (i.e., a closed submanifold $M\injto \CC^N$). Then $\Omega^i$ is acyclic and hence $\H^p(F^p\Omega_{\mathrm{dR}}) = \Omega^p_{\mathrm{cl}}$ is the space of holomorphic closed $p$-forms (these are huge vector spaces!).
+\end{rem}
+
+If $M$ is compact, then $\dim_{\CC} (\bigoplus_{i,p} \H^i(M; \Omega^p)) < \infty$ and hence the Deligne cohomlogy groups are always built out of $\ZZ$'s and $\CC$'s by extensions and quotients.
+
+If $M$ is compact K\"ahler (e.g., a smooth projective variety over $\CC$), then the map
+\[
+\H^*(M; F^p\Omega_{\mathrm{dR}}) \to \H^*(M; \Omega_{\mathrm{dR}}) \simeq \H^*(M;\CC)
+\]
+is \emph{injective}. The image is $F^p\H^*(M;\CC)$ in the Hodge filtration. Thus, we have a short exact sequence
+\[
+0\to \frac{\H^{i-1}(M;\CC)}{F^p\H^{i-1}(M;\CC) + \H^{i-1}(M; (2\pi i)^{p-1}\QQ)} \to 
+\H^i(M; \QQ(p)_{\D}) \to F^p\H^i(M;\CC) \cap \H^i(M; (2\pi i)^p\QQ) \to 0,
+\]
+which we view as an extension of something \enquote{discrete} by something \enquote{continuous}.
+
+When $i = 2p$, the left hand side is $J^p(M)_{\QQ}$, that is, Griffith's intermediate Jacobian; for $p=1$ this is the usual Jacobian.
+
+\subsection{Applications} 
+\begin{enumerate}[(i)]
+\item One application, the intermediate Jacobians $J^p(M)$, were already mentioned.
+
+\item Secondary characteristic classes of flat bundles
+\[
+\begin{tikzcd}
+c_p(V) \ar[r,phantom,"\in"] &[-2em]  \H^{2p-1}(B\GL_n(\CC)^{\delta}, \CC/(2\pi i)^p\ZZ), \ar[d,"\partial"] & p>0 \\
+& \H^{2p}(B\GL_n(\CC)^{\delta}, (2\pi i)^p\ZZ),
+\end{tikzcd}
+\]
+also called the Chern--Simons invariants.
+
+\item \textbf{Arithmetic:} Let $\cat{X} \to \Spec(\ZZ)$ be a regular proper scheme over $\ZZ$. Then $\cat X$ should not be thought of as compact, because $\Spec(\ZZ)$ is not compact ($\Spec(\ZZ)$ corresponds to the affine line $\Spec(\FF_p[T]) = \AA^1_{\FF_p}$. 
+
+There is a small neighborhood around $\infty \in \PP^1_{\FF_p}$ corresponding to $\FF_p[T] \to \FF_p((T^{-1}))$ (which which should be thought of as corresponding to the inclusion $\{0\} \to \RR$).
+
+On $\cat X$, we should consider not just cohomology, but \enquote{compactly supported cohomology}, namely
+\[
+\fib\bigl(\R\Gamma(\cat X) \to \R\Gamma(\cat X(\CC)/C_2)\bigr).
+\]
+The idea of Arakelov theory is the following: If \enquote{cohomology} means motivic cohomology, then $\R\Gamma(\cat X(\CC))$ should be Deligne cohomology.
+\end{enumerate}
+
+\begin{ex}
+Consider the motivic cohomology
+\[
+\H^i_{\mathrm{M}}(\Spec(\ZZ);\QQ(p)) \to \H^i(*_{\CC}; \QQ(p)_{\D})^{C_2}.
+\]
+In weights $p>1$, (by Borel) the left hand side is non-zero if and only if $i=1$ and $p$ is odd, in which case it is a one-dimensional $\QQ$-vector space. The right hand side is non-zero if and only if $i=1$ and $p$ is odd, in which case it is isomorphic to $\CC/(2\pi i)^p\QQ \xrightarrow{\mathrm{Re}} \RR$. The image of the induced map $\QQ \to \RR$ can be identified with $\pi^? \zeta(p)\QQ$, where $\zeta$ is the Riemann $\zeta$-function.
+\end{ex}
+
+\subsection{Goals of this lecture series} 
+\begin{enumerate}[(a)]
+\item We want to make precise the idea that Deligne cohomology is the analog of motivic cohomology for complex manifolds.
+
+\item A second goal is to understand the Hodge conjecture: For a complex smooth projective manifold $M$ we have:
+\[
+\begin{tikzcd}
+K_0(\Vect(M))_{\QQ} \ar[dr,twoheadrightarrow] \ar[r,"\mathrm{ch}"] & \bigoplus_p \H^{2p}(M; \QQ(p)) \ar[d,twoheadrightarrow] \\
+& \bigoplus_p \mathrm{Hdg}^p(M)_{\QQ}.
+\end{tikzcd}
+\]
+
+We want to modify $K_0(\Vect(M))$ using continuous K-theory to get a theory where it is reasonable to conjecture that $K_0(\Nuc(M))_\QQ \isoto \bigoplus_p \H^{2p}(M;\QQ(p))$.
+
+\item A third goal is to make Riemann--Roch more transparent.
+\end{enumerate}
+
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+

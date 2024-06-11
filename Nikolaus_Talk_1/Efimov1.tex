@@ -1,0 +1,531 @@
+\documentclass[draft]{amsart}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{tikz-cd}
+\usepackage{stmaryrd} % \mapsfrom
+\usepackage[shortlabels]{enumitem}
+\usepackage{geometry}
+\usepackage[final,kerning,spacing]{microtype}\frenchspacing
+\usepackage{csquotes}
+\usepackage[final]{hyperref}
+\usepackage[capitalize]{cleveref}
+\usepackage[inline]{showlabels}
+
+\newcommand{\todo}[1]{\textcolor{red}{TODO: #1}}
+
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\FF}{\mathbb{F}}
+\renewcommand{\AA}{\mathbb{A}}
+\newcommand{\GG}{\mathbb{G}}
+\newcommand{\PP}{\mathbb{P}}
+
+\renewcommand{\H}{\mathrm{H}}
+\newcommand{\D}{\mathrm{D}}
+\newcommand{\R}{\mathrm{R}}
+\renewcommand{\O}{\mathcal{O}}
+
+\newcommand{\set}[2]{\left\{#1\,\middle|\,#2\right\}}
+\newcommand{\ol}[1]{\overline{#1}}
+\newcommand{\ul}[1]{\underline{#1}}
+\newcommand{\wh}[1]{\widehat{#1}}
+\newcommand{\wt}[1]{\widetilde{#1}}
+\newcommand{\cat}[1]{\mathcal{#1}}
+\newcommand{\sheaf}[1]{\mathcal{#1}}
+
+\renewcommand{\setminus}{\smallsetminus}
+\renewcommand{\emptyset}{\vanothing}
+\newcommand{\ssubset}{\Subset} 
+\newcommand{\ssupset}{\Supset} 
+\newcommand{\op}{\mathrm{op}}
+
+\newcommand{\too}{\longrightarrow}
+\newcommand{\xto}[1]{\mathbin{\xrightarrow{#1}}}
+\newcommand{\isoto}{\mathbin{\xrightarrow{\sim}}}
+\newcommand{\injto}{\mathbin{\hookrightarrow}}
+\newcommand{\injtoo}{\mathbin{\longhookrightarrow}}
+\newcommand{\epito}{\mathbin{\to\kern-.8em\to}}
+\newcommand{\epitoo}{\mathbin{\too\kern-.8em\to}}
+
+\renewcommand{\Pr}{\mathrm{Pr}}
+\newcommand{\Stab}{\mathrm{Stab}}
+
+\newcommand{\blank}{-} % todo
+
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\fib}{fib}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Spa}{Spa}
+\DeclareMathOperator{\dlog}{dlog}
+\DeclareMathOperator{\SingularSupport}{SS}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\Map}{Map}
+\DeclareMathOperator{\Open}{Open}
+\DeclareMathOperator{\Seminorm}{Seminorm}
+\DeclareMathOperator{\Shv}{Shv}
+\DeclareMathOperator{\Nuc}{Nuc}
+\DeclareMathOperator{\Cat}{Cat}
+\DeclareMathOperator{\CompAss}{CompAss}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\Fun}{Fun}
+\DeclareMathOperator{\Mod}{Mod}
+\DeclareMathOperator{\Perf}{Perf}
+\DeclareMathOperator{\CompHaus}{CompHaus}
+\DeclareMathOperator{\Spf}{Spf}
+\DeclareMathOperator{\PSh}{PSh}
+\DeclareMathOperator{\Corr}{Corr}
+\DeclareMathOperator{\Pro}{Pro}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\Tate}{Tate}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Vect}{Vect}
+\DeclareMathOperator{\Spv}{Spv}
+\DeclareMathOperator{\Calk}{Calk}
+\DeclareMathOperator{\QCoh}{QCoh}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator*{\indinjlim}{\text{``}\varinjlim\text{''}} % todo
+\DeclareMathOperator*{\indprojlim}{\text{``}\varprojlim\text{''}} % todo
+\DeclareMathOperator*{\colim}{colim}
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{fact}[thm]{Fact}
+\newtheorem{ex}[thm]{Example}
+\newtheorem{exercise}[thm]{Exercise}
+\newtheorem{warning}[thm]{Warning}
+\newtheorem*{claim}{Claim}
+\newtheorem*{notation}{Notation}
+
+\begin{document}
+\title{Dualizable Categories and Localizing Motives}
+\author{Alexander Efimov}
+\maketitle
+\tableofcontents
+
+\section{Talk 1}
+Consider a qcqs scheme $X$. There are two categories associated with $X$: the category $\Perf(X)= D_{\mathrm{qc}}(X)^{\omega}$ of perfect complexes and $D_{\mathrm{qc}}(X) = \Ind(\Perf(X))$.
+
+There are two invariants we might consider:
+\begin{align*}
+K(X) &= K(\Perf(X)) \\
+\H\H(X) &= \H\H(\Perf(X)), \\
+K(D_{\mathrm{qc}}(X)) &= 0.
+\end{align*}
+The idea is to understand $K(X)$ in terms of $D_{\mathrm{qc}}(X)$.
+
+\subsection{Compactly assembled categories}
+Compactly assembled categories were first developed by Lurie, Joyal, Johnstone etc.
+
+If $\cat C = \Ind(\cat A)$, then for all $x\in \cat C$ we have an ind-system $(x_i)_i$ with $x_i\in \cat C^\omega$ such that $x = \varinjlim\limits_i x_i$. Observe that the assignment $x\mapsto \indinjlim_i x_i$ is gives a well-defined functor 
+\[
+\wh{Y}\colon \cat C \to \Ind(\cat C),
+\]
+which is left adjoint to $\colim\colon \Ind(\cat C)\to \cat C$.
+
+\begin{defn}
+Let $\cat C$ be an accessible $\infty$-category with filtered colimits. Then $\cat C$ is \emph{compactly assembled} if there exists $\wh{Y}\colon \cat C\to \Ind(\cat C)$ which is left adjoint to $\colim$.
+\end{defn}
+
+\begin{ex}
+\begin{enumerate}[(1)]
+\item $\Ind(\cat A)$ is compactly assembled.
+\item $(\RR\cup \{+\infty\}, \le)$ is compactly assembled with $\wh{Y}(a) = \indinjlim_{b<a}b$.
+
+\item Let $X$ be a locally compact Hausdorff space. Then $\Open(X)$ is compactly assembled with $\wh{Y}(U) = \indinjlim_{V\ssubset U} V$. Also, $\cat K(X)^{\op}$ is compactly assembled with $\wh{Y}(Z) = \indinjlim_{Z'\ssupset Z} Z'$.
+
+\item \textbf{Exercise:} Let $\Seminorm_1$ be the category of $\RR$-vector spaces with a seminorm $\lVert\cdot\rVert$ and contractible maps (i.e., $\lVert f(x)\rVert \le \lVert x\rVert$). If $\dim V < \infty$ and $(V,\lVert\cdot\rVert)$ is normed, then
+\[
+\wh{Y}(V,\lVert\cdot\rVert) = \indinjlim_{c>1} (V, c \lVert\cdot\rVert)
+\]
+and $\wh{Y}(\RR, 0) = \indinjlim_{\varepsilon>0} (\RR,\varepsilon \lvert\cdot\rvert)$.
+
+\item $\Shv(X,\ul{\cat C})$ is compactly assembled, where $X$ is a locally compact Hausdorff space and $\ul{\cat C}$ is a presheaf of dualizable categories.
+
+\item The categories $\Nuc(R_{\wh{I}})$ and $\wh{\Nuc}(R_{\wh{I}})$ of nuclear modules are compactly assembled, and $\Nuc(R_{\wh{I}})^{\omega} = \Perf(R_{\wh{I}})$.
+
+\item Let $R$ be an associative ring and $J\subseteq R$ an ideal which is flat as a right module and satisfying $J^2 = J$. Put
+\[
+\Mod_a(R) = \Mod(R)/\Mod(R/J)
+\]
+Then $D(\Mod_a(R))$ is compactly assembled.
+\end{enumerate}
+\end{ex}
+
+We introduce the following notation:
+\begin{itemize}
+\item $\Cat^{\mathrm{idem}}$ is the category of small idempotent complete categories,
+
+\item $\Cat^{\mathrm{perf}}$ is the category of small idempotent complete small stable categories , and 
+
+\item $\CompAss$ is the category of compactly assembled categories, where the $1$-morphisms are the strongly continuous functors, i.e., $F\colon \cat C\to \cat D$ such that $F$ commutes with filtered colimits and the diagram
+\[
+\begin{tikzcd}
+\cat C \ar[d,"\wh{Y}"'] \ar[r,"F"] & \cat D \ar[d,"\wh{Y}"] \\
+\Ind(\cat C)\ar[r,"\Ind(F)"'] & \Ind(\cat D).
+\end{tikzcd}
+\]
+
+\item Denote $\Cat^{\mathrm{dual}}_{\mathrm{st}} \subseteq \CompAss$ the subcaetgory of compactly assembled stable categories with strongly continuous exact functors.
+Note that both $\Cat^{\mathrm{dual}}_{\mathrm{st}}$ and $\CompAss$ are cocomplete.
+\end{itemize}
+
+\begin{prop}[Lurie]
+\begin{enumerate}[(1)]
+\item $\Cat^{\mathrm{idem}}$ is generated under colimits by $[1]$, which is compact.
+
+\item $\Cat^{\mathrm{perf}}$ is generated under colimits by $\Sp^{\omega}$, which is compact.
+\end{enumerate}
+\end{prop}
+\begin{proof}[Sketch]
+Let $F\colon \cat C\to \cat D$ such that $\Fun([1],\cat C) \isoto \Fun([1], \cat D)$. Then $F$ is an equivalence.
+\end{proof}
+
+\begin{thm}[Urysohn's lemma]\label{Efimov:Urysohn}
+\begin{enumerate}[(1)]
+\item $\CompAss$ is generated under colimits by $\RR\cup \{\infty\}$, which is $\omega_1$-compact.
+
+\item $\Cat^{\mathrm{dual}}_{\mathrm{st}}$ is generated under colimits by $\Shv_{\RR\times \RR_{\ge0}}(\RR;\Sp)$.
+\end{enumerate}
+In particular, $\CompAss$ and $\Cat^{\mathrm{dual}}_{\mathrm{st}}$ are $\omega_1$-presentable.\footnote{The last statement ist due to Ramzi.}
+\end{thm}
+
+\begin{rem}
+The usual Urysohn's lemma for compact Hausdorff spaces says that $\CompHaus^\op$ is generated under colimits by $[0,1]$, which is $\omega_1$-compact.
+\end{rem}
+
+\begin{fact}
+We have an equivalence
+$\CompAss \isoto \Cat^{\mathrm{dual}}$, where $\Cat^{\mathrm{dual}}$ is the category of dualizable objects in $\Pr^L$ whose $1$-morphisms are those functors $F\colon \cat C\to \cat D$ for which the right adjoint $F^R$ is colimit-preserving. The equivalence takes
+\begin{align*}
+\Ind(\cat A) &\leftrightarrow \PSh(\cat A; S), \\
+\cat C &\mapsto \set{F\colon \cat C^\op \to S}{\begin{array}{l}\text{$F$ commutes with} \\ \text{filtered colimits}\end{array}}, \\
+\set{G\colon \cat D^\vee \to S}{\begin{array}{l}\text{$G$ is colimit preserving} \\ \text{and left exact}\end{array}} &\mapsfrom \cat D.
+\end{align*}
+\end{fact}
+
+Why is $\CompAss$ generated by $\RR\cup \{\infty\}$? It suffices to show that if $F\colon \cat C\to \cat D$ is strongly continuous such that
+\[
+\Fun^{\mathrm{str.cont.}}(\RR\cup \{\infty\}, \cat C)^{\simeq} \isoto \Fun^{\mathrm{str.cont.}}(\RR\cup \{\infty\}, \cat D)^{\simeq},
+\]
+then $F$ is an equivalence.
+
+\begin{prop}
+Any compactly assembled category is $\omega_1$-accessible.
+\end{prop}
+\begin{proof}[Sketch]
+We have $\wh{Y}(x) = \indinjlim\limits_{i\in I} x_i$, where $I$ is a directed poset. Then $x\simeq \varinjlim\limits_{f\colon \NN\to I} \varinjlim\limits_{n} x_{f(n)}$, where $x_{f(n)}$ is $\omega_1$-compact.
+\end{proof}
+
+\begin{defn}
+In a compactly assembled category, a map $f\colon x\to y$ is compact if it factors as
+\[
+\begin{tikzcd}
+Y(x)\ar[r,"Y(f)"] \ar[dr] & Y(y) \\
+& \wh{Y}(y)\ar[u].
+\end{tikzcd}
+\]
+\end{defn}
+
+\begin{lem}
+If $\cat C$ is compactly assembled, and $f\colon x\to y$ in $\cat C$ is compact, then $f = g\circ h$ such that $g$, $h$ are compact.
+\end{lem}
+\begin{proof}[Sketch]
+Write $\wh{Y}(y)= \indinjlim\indinjlim_i y_i$. Then $\wh{Y}(y) = \varinjlim\limits_i \wh{Y}(y_i)$, so we have a factorization 
+\[
+\begin{tikzcd}
+x \ar[rr,"f"] \ar[dr,"g"'] & & y \\
+& y_i \ar[ur,"h"'],
+\end{tikzcd}
+\]
+where $g$ and $h$ are compact.
+\end{proof}
+
+\begin{lem}
+The functor
+\begin{align*}
+\Fun^{\mathrm{str.cont.}}(\RR\cup \{\infty\}, \cat C) &\to \cat C^{\omega_1}, \\
+G &\mapsto G(\infty)
+\end{align*}
+is essentially surjective.
+\end{lem}
+\begin{proof}
+Let $x \in \cat C^{\omega_1}$. Then $\wh{Y}(x) = \indinjlim (x_0\to x_1\to \dotsb)$ such that each $x_n \to x_{n+1}$ is compact. Define $G_0\colon \ZZ\cup \{\infty\} \to \cat C$ by
+\[
+G(m) = \begin{cases}
+x, & \text{if $h=\infty$,}\\
+x_m, & \text{if $m\ge0$,} \\
+0, & \text{if $m<0$.}
+\end{cases}
+\]
+Inductively, define compatible $G_n\colon \frac1{2^n}\ZZ\cup\{\infty\} \to \cat C$ such that all transition maps are compact. We obtain $G\colon \ZZ[1/2] \cup\{\infty\} \to \cat C$ and put
+\[
+G'\colon \ZZ[1/2] \cup\{\infty\} \to \cat C, \qquad G'(r) = \varinjlim\limits_{b<r} G(b).
+\]
+Take a left Kan extension of $G'$ to $\RR\cup\{\infty\}$ to get a strongly continuous functor $H\colon \RR\cup \{\infty\} \to \cat C$ such that $H(\infty) = x$.
+\end{proof}
+
+For $F$ as above, we already know that $F^{\omega_1}\colon \cat C^{\omega_1} \to \cat D^{\omega_1}$ is essentially surjective. In order to finish the proof of \cref{Efimov:Urysohn}.(1), we need to show that it is fully faithful. Consider the pullback diagram
+\[
+\begin{tikzcd}
+\varprojlim_{a>0} \Map_{\cat C}(G(0), H(a)) \ar[r] \ar[d] & \Fun^{\mathrm{str.cont.}} (\RR\cup \{\infty\}, \cat C)^{\simeq} \ar[d] \\
+* \ar[r,"{(G,H)}"'] & \Fun^{\mathrm{str.cont.}}(\RR_{\le0}, \cat C)^{\simeq} \times \Fun^{\mathrm{str.cont.}}(\RR_{>0}\cup \{\infty\}, \cat C)^{\simeq}.
+\end{tikzcd}
+\]
+It follows that $\varprojlim_{a>0} \Map_{\cat C}(G(0), H(a)) \isoto \varprojlim_{a>0} \Map_{\cat D}(F(G(0)), F(H(a)))$.
+
+Given strongly continuous functors $G, H\colon \RR\cup \{\infty\} \to \cat C$, we get
+\begin{align*}
+\Map_{\cat C}(G(\infty), H(\infty)) &= \varprojlim_{a<\infty} \varinjlim\limits_{b<\infty} \Map_{\cat C}(G(a), H(b)) \\
+&= \varprojlim_{a<\infty} \varinjlim\limits_{b<\infty} \varprojlim_{c>b} \Map_{\cat C}(G(a), H(c)) \\
+&\isoto \varprojlim_{a<\infty} \varinjlim\limits_{b<\infty} \varprojlim_{c>b} \Map_{\cat D}(F(G(a)), F(H(c))) \\
+&\isoto \dotsb \isoto \Map_{\cat D}(F(G(\infty)), F(H(\infty))).
+\end{align*}
+Hence, $F^{\omega_1}$ is fully faithful.
+\bigskip
+
+The functor $\iota\colon \Cat^{\mathrm{dual}}_{\mathrm{st}} \to \CompAss$ is conservative and commutes with filtered colimits. It has a left adjoint 
+\begin{align*}
+\Stab^{\mathrm{cont}} \colon \CompAss &\to \Cat^{\mathrm{dual}}_{\mathrm{st}}, \\
+\cat C &\mapsto \set{F\colon \cat C^\op\to \Sp}{\text{$F$ commutes with filtered colmilits}}.
+\end{align*}
+It follows that $\Stab^{\mathrm{cont}}(\RR\cup\{\infty\}) = \Shv_{\RR\times \RR_{\ge0}}(\RR, \Sp)$ generates $\Cat^{\mathrm{dual}}_{\mathrm{st}}$
+
+\begin{prop}
+For a sheaf $\sheaf F \in \Shv(\RR, \Sp)$, the following are equivalent:
+\begin{enumerate}[(1)]
+\item The singular support (microsupport) $\SingularSupport(\sheaf F)$ is a subset of $\RR\times \RR_{\ge0}$.
+\item For all $a<b$, $\sheaf F((-\infty,b)) \isoto \sheaf F((a,b))$.
+\end{enumerate}
+\end{prop}
+
+\begin{cor}
+We have equivalences
+\begin{align*}
+\Shv_{\RR\times \RR_{\ge0}}(\RR, \Sp) &\simeq \set{F\colon (\RR_{\le})^\op \to \Sp}{\forall a\in \RR, F(a) \isoto \varprojlim_{b<a} F(b)} \\
+&\simeq \Stab^{\mathrm{cont}}(\RR\cup\{\infty\}).
+\end{align*}
+\end{cor}
+
+\section{Talk 2}
+
+\begin{defn}
+Let $\cat C$ be a presentable stable category. Then $\cat C$ is called \emph{flat} if $\cat C\otimes \blank \colon \Pr^L_{\mathrm{st}} \to \Pr^L_{\mathrm{st}}$ preserves fully faithful functors.
+\end{defn}
+
+\textbf{Question:} Is every $\cat C\in \Pr^L_{\mathrm{st}}$ flat?
+
+\begin{thm}\label{Efimov:flat}
+$\cat C$ is flat if and only if $\cat C$ is dualizable.
+\end{thm}
+\begin{proof}
+If $\cat C$ is dualizable, then $\cat C$ is obviously flat, since $\cat C\otimes \blank = \Fun^L(\cat C^\vee, \blank)$. The other direction will be proved below.
+\end{proof}
+
+\begin{notation}
+Let $\Pr^{\mathrm{acc}}_{\mathrm{st}}$ be the $(\infty,2)$-category of presentable stable categories and accessible exact functors.
+\end{notation}
+
+\begin{prop}
+\begin{enumerate}[(a)]
+\item For any $\cat C \in \Pr^L_{\mathrm{st}}$, there exists a natural oplax 2-functor $\cat C\otimes \blank \colon \Pr^{\mathrm{acc}}_{\mathrm{st}} \to \Pr^{\mathrm{acc}}_{\mathrm{st}}$ (meaning that there are 2-morphisms $\cat C\otimes (F\circ G) \to (\cat C\otimes F)\circ (\cat C\otimes G)$ which need not be invertible) which extends the usual 2-functor $\cat C\otimes \blank \colon \Pr^L_{\mathrm{st}} \to \Pr^L_{\mathrm{st}}$.
+
+\item If $\cat C$ is flat, then $\cat C\otimes \blank$ is an honest 2-functor.
+\end{enumerate}
+\end{prop}
+
+Assume that $\cat C$ is $\kappa$-presentable and $F\colon \cat D\to \cat E$ is an accessible functor. Then
+\[
+\cat C\otimes F\colon \cat C\otimes \cat D \simeq \Fun^{\textnormal{$\kappa$-lex}}((\cat C^\kappa)^\op, \cat D) \xrightarrow{F\circ \blank} \Fun((\cat C^\kappa)^\op, \cat E) \to \Fun^{\textnormal{$\kappa$-lex}}((\cat C^\kappa)^\op, \cat E) \cong \cat C\otimes \cat E,
+\]
+where the second map is given by the left adjoint to the inclusion.
+\bigskip
+
+\textbf{Observation:} For presentable stable $\cat D$, $\cat E$, we have an equivalence of categories
+\begin{align*}
+\Fun^{\mathrm{acc}}(\cat D, \cat E) &\simeq \Corr(\cat D, \cat E) = \set{(\cat T,i_0,i_1)}{\begin{array}{l} \text{$i_0\colon \cat D\to \cat T$ and $i_1\colon \cat E\to \cat T$ are fully faithful} \\
+\text{continuous,and $\cat T = \langle i_1(\cat E), i_0(\cat D)\rangle$}
+\end{array}} \\
+i_1^R\circ i_0 &\mapsfrom (\cat T,i_0,i_1), \\
+F &\mapsto \cat E\oplus_{F}\cat D = \{(x\in \cat E, y\in \cat D, x\to F(y))\}
+\quad \text{the oplax limit}.
+\end{align*}
+
+We obtain a functor
+\begin{align*}
+\cat C\otimes\blank \colon \Corr(\cat D, \cat E) &\to \Corr(\cat C\otimes \cat D, \cat C\otimes \cat E), \\
+(\cat T, i_0, i_1) &\mapsto (\cat C\otimes \cat T, \cat C\otimes i_0, \cat C\otimes i_1).
+\end{align*}
+
+We want to understand the composition
+\begin{align*}
+\Corr(\cat D_1,\cat D_2) \times \Corr(\cat D_0, \cat D_1) &\to \Corr(\cat D_0, \cat D_2), \\
+(\cat T_{12}, \cat T_{01}) &\mapsto \cat T_{02} \subseteq \cat T_{012} = \cat T_{01} \sqcup_{\cat D_1} \cat T_{12},
+\end{align*}
+where $\cat T_{02}$ is generated by the images of $\cat D_0$ and $\cat D_2$.
+
+Note that
+\[
+\begin{tikzcd}
+(\cat C\otimes \cat T_{01}) \bigsqcup_{\cat C\otimes \cat D_1} (\cat C\otimes \cat T_{12}) \ar[r,"\sim"] & \cat C \otimes (\cat T_{01} \sqcup_{\cat D_1} \cat T_{12}) \\
+\cat C\otimes \cat T_{02} \ar[r] & (\cat C\otimes \cat T_{01}) \circ (\cat C\otimes \cat T_{12}) \ar[u,hook].
+\end{tikzcd}
+\]
+The bottom map need not be an equivalence in general, because $\cat C\otimes \cat T_{02} \to \cat C\otimes \cat T_{012}$ is not fully faithful in general. But if $\cat C$ is flat, then it is fully faithful, hence we obtain the functor $\cat C\otimes \blank \colon \Pr^{\mathrm{acc}}_{\mathrm{st}} \to \Pr^{\mathrm{acc}}_{\mathrm{st}}$.
+
+We have a fibration $\Corr \to \Delta$ given by
+\begin{align*}
+\Corr_n &= \bigsqcup_{(\cat D_0,\dotsc, \cat D_n)} \Corr(\cat D_0, \cat D_1,\dotsc,\cat D_n), \\
+\Corr(\cat D_0,\cat D_1,\dotsc,\cat D_n) &= \set{(\cat T, i_0,\dotsc,i_n)}{\begin{array}{l}
+\text{$i_k\colon \cat D_k\to \cat T$ are fully faithful, continuous} \\
+\text{$\cat T = \langle i_n(\cat D_n), \dotsc, i_0(\cat D_0)\rangle$} \\
+\text{If $\cat T_{k,k+1} \subset \cat T$ is generated by $\cat D_k, \cat D_{k+1}$, then} \\
+\cat T \simeq \cat T_{01} \sqcup_{\cat D_1} \cat T_{12} \sqcup_{\cat D_2} \dotsb \sqcup_{\cat D_n} \cat T_{n-1,n}
+\end{array}}.
+\end{align*}
+
+We have a functor $\cat C\otimes \blank \colon \Corr(\cat D_0,\cat D_1,\dotsc, \cat D_n) \to \Corr(\cat C\otimes \cat D_0,\dotsc, \cat C\otimes \cat D_n)$ and hence we get a map
+\[
+\cat C\otimes\blank \colon \Corr \to \Corr
+\]
+of fibrations over $\Delta$.
+
+\begin{proof}[Proof of \cref{Efimov:flat}]
+We now prove that if $\cat C$ is flat, then $\cat C$ is dualizable. Recall that $\cat C$ is dualizable if and only if (AB6) holds in $\cat C$: that is, for all directed posets $J_i$, $i\in I$, and functors $J_i \to \cat C$, $j_i\mapsto x_{j_i}$, then the map
+\[
+\varinjlim\limits_{(j_i)_i \in \prod_i J_i} \prod_i x_{j_i} \isoto \prod_i \varinjlim\limits_{j_i} x_{j_i}.
+\]
+We have commutative square
+\begin{equation}\label{Efimov:AB6}
+\begin{tikzcd}[sep = large]
+\prod_i \Fun(J_i, \cat C) \ar[r,"T = \prod_i \colim"] & \prod_i \cat C \\
+\Fun(\prod_i J_i, \cat C) \ar[r, "W = \colim"'] \ar[u, "U"] & \cat C \ar[u, "V = \text{diag}"']
+\end{tikzcd}
+\end{equation}
+where $U$ is the left Kan extension. Then (AB6) means that the dual Beck--Chevalley condition holds, i.e., $W\circ U^R \isoto V^R\circ T$.
+
+Observe that $\eqref{Efimov:AB6} \simeq \cat C\otimes (\text{same square for $\Sp$})$. Using that $\cat C\otimes \blank$ is a 2-functor on $\Pr^{\mathrm{acc}}_{\mathrm{st}}$ and using (AB6) for $\Sp$, then it follows that (AB6) holds for $\cat C$.
+\end{proof}
+
+Suppose we have a short exact sequence
+\[
+0\to \Ind(\cat A) \xrightarrow{F} \cat C \xrightarrow{G} \Ind(\cat B) \to 0
+\]
+with $F$ and $G$ strongly continuous.
+
+\textbf{Question:} Is it true that $\cat C$ is dualizable?
+
+Consider the sequence of adjunctions $G\dashv G^R \dashv G^{RR}$. We have
+\[
+\cat C = \langle G^R(\Ind(\cat B)), F(\Ind(\cat A))\rangle \simeq \Ind(B) \oplus_{\Phi} \Ind(\cat A),
+\]
+where $\Phi \coloneqq G^{RR}\circ F$ is the gluing datum, imposing that $\Hom_{\cat C}(x,y) = \Hom_{\Ind(\cat B)}(x, \Phi(y))$ for any $x\in G^R(\Ind(\cat B))$ and $y\in F(\Ind(\cat A))$.
+
+Observe (almost tautologically) that 
+\begin{align*}
+\Fun^{\mathrm{acc}}(\Ind(\cat A), \Ind(\cat B)) &= \Fun(\cat B, \Pro(\Ind(\cat A)))^{\op} \\
+\Phi &\mapsto \Psi.
+\end{align*}
+
+\begin{prop}\label{Efimov:Tate}
+With the above notation, the following are equivalent:
+\begin{enumerate}[(1)]
+\item $\cat C$ is dualizable.
+\item $\cat C$ is compactly generated.
+\item $\Image(\Psi) \subseteq \Tate(\cat A)$, the idempotent-complete stable subcategory of $\Pro(\Ind(\cat A))$ generated by $\Pro(\cat A)$ and $\Ind(\cat A)$.
+\end{enumerate}
+\end{prop}
+
+\begin{cor}
+We have
+\begin{align*}
+\Ext^1(\cat B, \cat A) &= \{0\to \cat A\to \cat D\to \cat B\to 0\} \\
+&\simeq \Fun(\cat B, \Tate(\cat A))^{\simeq}.
+\end{align*}
+\end{cor}
+
+\begin{proof}[Proof of \cref{Efimov:Tate}]
+We have $\cat A \subseteq \cat C^\omega$. So if $\cat C$ is dualizable, then
+\[
+(\cat C/\Ind(\cat A))^\omega = (\cat C^\omega/\cat A)^{\mathrm{idem}},
+\]
+hence for all $x\in (\cat C/\Ind(\cat A))^{\omega}$, there exists $y\in \cat C^{\omega}$ such that $y\mapsto x\oplus x[1]$. We deduce (1)$\iff$(2).
+
+For the equivalence (2)$\iff$(3) we use that for $x\in \cat B$ the following are equivalent:
+\begin{enumerate}[(i)]
+\item There exists a lift $y\in \cat C^\omega$ of $x\oplus x[1]$.
+\item There is a fiber/cofiber sequence $U\to \Psi(x) \oplus \Psi(x)[1] \to V$ such that $U\in \Pro(\cat A)$ and $V\in \Ind(\cat A)$.
+
+Equivalently, $\Psi(x) \oplus \Psi(x)[1] \in \Tate_{\cat C}(\cat A)$. By Thomason--Trobaugh's theorem, this is equivalent to $\Psi(x) \in \Tate(\cat A)$.
+\end{enumerate}
+\end{proof}
+
+
+\begin{ex}
+Consider the sequence 
+\[
+0\to \Perf_{\textnormal{$p$-tors}}(\ZZ) \to \Perf(\ZZ) \to \Perf(\ZZ[p^{-1}]) \to 0.
+\]
+The corresponding $\ZZ$-linear functor $\Perf(\ZZ[p^{-1}]) \to \Tate(\Perf_{\textnormal{$p$-tors}}(\ZZ))$ sends $\ZZ[p^{-1}] \mapsto \QQ_p$.
+\end{ex}
+
+\begin{prop}
+Let $k$ be a field and let $\cat C = \{(V,W\in D(k); \varphi\colon \bigoplus_{\NN} V \to \bigoplus_{\NN} W)\}$. A direct computation shows
+\[
+\Psi(k) = \indprojlim_{f\colon \NN\to \NN} X_f,\qquad \text{where $X_f \coloneqq \bigoplus_{n\in\NN} k^{f(n)}$,}
+\]
+which is not a Tate object. We need to show that $(\ol X_f)_f$ in $\Pro(\Calk(k))$ is not pro-constant. This uses that for $f\le g$ the transition map $X_g\to X_f$ is a split epimorphism. If $(\ol X_f)_f$ were pro-constant, then $(\ol X_f)_f$ would be eventually constant, which is false since $\fib(X_{f+1}\to X_f) = \bigoplus_{\NN}k$.
+\end{prop}
+
+Let $R$ be a commutative noetherian ring. Then Neeman showed
+\begin{align*}
+\begin{Bmatrix}
+\text{localizing subcategories} \\
+\text{of $D(R)$}
+\end{Bmatrix} &\cong \{\text{subsets of $\Spec(R)$}\}, \\
+D_S(R) = \langle \kappa(p)\,|\, p\in S\rangle &\mapsfrom S
+\end{align*}
+
+Neeman shows that $D_S(R) \to D(R)$ is strongly continuous if and only if $S$ is closed under specialization.
+
+\begin{thm}
+The following are equivalent for $S\subseteq \Spec(R)$.
+\begin{enumerate}[(i)]
+\item $D_S(R)$ is dualizable.
+\item $S$ is convex, i.e., if $x\leadsto y\leadsto z$ with $x,z\in S$, then $y\in S$.
+\item $D_S(R)$ is compactly generated.
+\end{enumerate}
+\end{thm}
+
+\begin{ex}
+Let $k$ be a field, take $\cat C = \langle M\,|\, M[x^{-1}]/y M[x^{-1}] = 0\rangle \subseteq D(k[x,y])$. Then $\cat C$ is not dualizable. 
+
+Intuitively, $\cat C = \QCoh(\AA^2/\{x=0, y\neq 0\})$.
+\end{ex}
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
