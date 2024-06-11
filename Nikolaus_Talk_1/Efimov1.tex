@@ -22,6 +22,7 @@
 \newcommand{\CC}{\mathbb{C}}
 \newcommand{\FF}{\mathbb{F}}
 \renewcommand{\AA}{\mathbb{A}}
+\renewcommand{\SS}{\mathbb{S}}
 \newcommand{\GG}{\mathbb{G}}
 \newcommand{\PP}{\mathbb{P}}
 
@@ -39,11 +40,12 @@
 \newcommand{\sheaf}[1]{\mathcal{#1}}
 
 \renewcommand{\setminus}{\smallsetminus}
-\renewcommand{\emptyset}{\vanothing}
+\renewcommand{\emptyset}{\varnothing}
 \newcommand{\ssubset}{\Subset} 
 \newcommand{\ssupset}{\Supset} 
 \newcommand{\op}{\mathrm{op}}
 
+\newcommand{\from}{\leftarrow}
 \newcommand{\too}{\longrightarrow}
 \newcommand{\xto}[1]{\mathbin{\xrightarrow{#1}}}
 \newcommand{\isoto}{\mathbin{\xrightarrow{\sim}}}
@@ -60,6 +62,7 @@
 \DeclareMathOperator{\Spec}{Spec}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\fib}{fib}
+\DeclareMathOperator{\Anima}{Ani}
 \DeclareMathOperator{\End}{End}
 \DeclareMathOperator{\Spa}{Spa}
 \DeclareMathOperator{\dlog}{dlog}
@@ -87,7 +90,10 @@
 \DeclareMathOperator{\Vect}{Vect}
 \DeclareMathOperator{\Spv}{Spv}
 \DeclareMathOperator{\Calk}{Calk}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Ker}{Ker}
 \DeclareMathOperator{\QCoh}{QCoh}
+\DeclareMathOperator{\Cone}{Cone}
 \DeclareMathOperator{\GL}{GL}
 \DeclareMathOperator*{\indinjlim}{\text{``}\varinjlim\text{''}} % todo
 \DeclareMathOperator*{\indprojlim}{\text{``}\varprojlim\text{''}} % todo
@@ -101,6 +107,7 @@
 \theoremstyle{definition}
 \newtheorem{defn}[thm]{Definition}
 \newtheorem{rem}[thm]{Remark}
+\newtheorem{applications}[thm]{Applications}
 \newtheorem{fact}[thm]{Fact}
 \newtheorem{ex}[thm]{Example}
 \newtheorem{exercise}[thm]{Exercise}
@@ -209,9 +216,9 @@ The usual Urysohn's lemma for compact Hausdorff spaces says that $\CompHaus^\op$
 We have an equivalence
 $\CompAss \isoto \Cat^{\mathrm{dual}}$, where $\Cat^{\mathrm{dual}}$ is the category of dualizable objects in $\Pr^L$ whose $1$-morphisms are those functors $F\colon \cat C\to \cat D$ for which the right adjoint $F^R$ is colimit-preserving. The equivalence takes
 \begin{align*}
-\Ind(\cat A) &\leftrightarrow \PSh(\cat A; S), \\
-\cat C &\mapsto \set{F\colon \cat C^\op \to S}{\begin{array}{l}\text{$F$ commutes with} \\ \text{filtered colimits}\end{array}}, \\
-\set{G\colon \cat D^\vee \to S}{\begin{array}{l}\text{$G$ is colimit preserving} \\ \text{and left exact}\end{array}} &\mapsfrom \cat D.
+\Ind(\cat A) &\leftrightarrow \PSh(\cat A; \Anima), \\
+\cat C &\mapsto \set{F\colon \cat C^\op \to \Anima}{\begin{array}{l}\text{$F$ commutes with} \\ \text{cofiltered limits}\end{array}}, \\
+\set{G\colon \cat D^\vee \to \Anima}{\begin{array}{l}\text{$G$ is colimit preserving} \\ \text{and left exact}\end{array}} &\mapsfrom \cat D.
 \end{align*}
 \end{fact}
 
@@ -279,17 +286,17 @@ Take a left Kan extension of $G'$ to $\RR\cup\{\infty\}$ to get a strongly conti
 For $F$ as above, we already know that $F^{\omega_1}\colon \cat C^{\omega_1} \to \cat D^{\omega_1}$ is essentially surjective. In order to finish the proof of \cref{Efimov:Urysohn}.(1), we need to show that it is fully faithful. Consider the pullback diagram
 \[
 \begin{tikzcd}
-\varprojlim_{a>0} \Map_{\cat C}(G(0), H(a)) \ar[r] \ar[d] & \Fun^{\mathrm{str.cont.}} (\RR\cup \{\infty\}, \cat C)^{\simeq} \ar[d] \\
+\varprojlim\limits_{a>0} \Map_{\cat C}(G(0), H(a)) \ar[r] \ar[d] & \Fun^{\mathrm{str.cont.}} (\RR\cup \{\infty\}, \cat C)^{\simeq} \ar[d] \\
 * \ar[r,"{(G,H)}"'] & \Fun^{\mathrm{str.cont.}}(\RR_{\le0}, \cat C)^{\simeq} \times \Fun^{\mathrm{str.cont.}}(\RR_{>0}\cup \{\infty\}, \cat C)^{\simeq}.
 \end{tikzcd}
 \]
-It follows that $\varprojlim_{a>0} \Map_{\cat C}(G(0), H(a)) \isoto \varprojlim_{a>0} \Map_{\cat D}(F(G(0)), F(H(a)))$.
+It follows that $\varprojlim\limits_{a>0} \Map_{\cat C}(G(0), H(a)) \isoto \varprojlim\limits_{a>0} \Map_{\cat D}(F(G(0)), F(H(a)))$.
 
 Given strongly continuous functors $G, H\colon \RR\cup \{\infty\} \to \cat C$, we get
 \begin{align*}
-\Map_{\cat C}(G(\infty), H(\infty)) &= \varprojlim_{a<\infty} \varinjlim\limits_{b<\infty} \Map_{\cat C}(G(a), H(b)) \\
-&= \varprojlim_{a<\infty} \varinjlim\limits_{b<\infty} \varprojlim_{c>b} \Map_{\cat C}(G(a), H(c)) \\
-&\isoto \varprojlim_{a<\infty} \varinjlim\limits_{b<\infty} \varprojlim_{c>b} \Map_{\cat D}(F(G(a)), F(H(c))) \\
+\Map_{\cat C}(G(\infty), H(\infty)) &= \varprojlim\limits_{a<\infty} \varinjlim\limits_{b<\infty} \Map_{\cat C}(G(a), H(b)) \\
+&= \varprojlim\limits_{a<\infty} \varinjlim\limits_{b<\infty} \varprojlim\limits_{c>b} \Map_{\cat C}(G(a), H(c)) \\
+&\isoto \varprojlim\limits_{a<\infty} \varinjlim\limits_{b<\infty} \varprojlim\limits_{c>b} \Map_{\cat D}(F(G(a)), F(H(c))) \\
 &\isoto \dotsb \isoto \Map_{\cat D}(F(G(\infty)), F(H(\infty))).
 \end{align*}
 Hence, $F^{\omega_1}$ is fully faithful.
@@ -313,7 +320,7 @@ For a sheaf $\sheaf F \in \Shv(\RR, \Sp)$, the following are equivalent:
 \begin{cor}
 We have equivalences
 \begin{align*}
-\Shv_{\RR\times \RR_{\ge0}}(\RR, \Sp) &\simeq \set{F\colon (\RR_{\le})^\op \to \Sp}{\forall a\in \RR, F(a) \isoto \varprojlim_{b<a} F(b)} \\
+\Shv_{\RR\times \RR_{\ge0}}(\RR, \Sp) &\simeq \set{F\colon (\RR_{\le})^\op \to \Sp}{\forall a\in \RR, F(a) \isoto \varprojlim\limits_{b<a} F(b)} \\
 &\simeq \Stab^{\mathrm{cont}}(\RR\cup\{\infty\}).
 \end{align*}
 \end{cor}
@@ -355,7 +362,7 @@ where the second map is given by the left adjoint to the inclusion.
 \textbf{Observation:} For presentable stable $\cat D$, $\cat E$, we have an equivalence of categories
 \begin{align*}
 \Fun^{\mathrm{acc}}(\cat D, \cat E) &\simeq \Corr(\cat D, \cat E) = \set{(\cat T,i_0,i_1)}{\begin{array}{l} \text{$i_0\colon \cat D\to \cat T$ and $i_1\colon \cat E\to \cat T$ are fully faithful} \\
-\text{continuous,and $\cat T = \langle i_1(\cat E), i_0(\cat D)\rangle$}
+\text{continuous, and $\cat T = \langle i_1(\cat E), i_0(\cat D)\rangle$}
 \end{array}} \\
 i_1^R\circ i_0 &\mapsfrom (\cat T,i_0,i_1), \\
 F &\mapsto \cat E\oplus_{F}\cat D = \{(x\in \cat E, y\in \cat D, x\to F(y))\}
@@ -406,7 +413,7 @@ We now prove that if $\cat C$ is flat, then $\cat C$ is dualizable. Recall that 
 \[
 \varinjlim\limits_{(j_i)_i \in \prod_i J_i} \prod_i x_{j_i} \isoto \prod_i \varinjlim\limits_{j_i} x_{j_i}.
 \]
-We have commutative square
+We have a commutative square
 \begin{equation}\label{Efimov:AB6}
 \begin{tikzcd}[sep = large]
 \prod_i \Fun(J_i, \cat C) \ar[r,"T = \prod_i \colim"] & \prod_i \cat C \\
@@ -467,7 +474,7 @@ For the equivalence (2)$\iff$(3) we use that for $x\in \cat B$ the following are
 \item There exists a lift $y\in \cat C^\omega$ of $x\oplus x[1]$.
 \item There is a fiber/cofiber sequence $U\to \Psi(x) \oplus \Psi(x)[1] \to V$ such that $U\in \Pro(\cat A)$ and $V\in \Ind(\cat A)$.
 
-Equivalently, $\Psi(x) \oplus \Psi(x)[1] \in \Tate_{\cat C}(\cat A)$. By Thomason--Trobaugh's theorem, this is equivalent to $\Psi(x) \in \Tate(\cat A)$.
+Equivalently, $\Psi(x) \oplus \Psi(x)[1] \in \Tate_{\mathrm{el}}(\cat A)$. By Thomason--Trobaugh's theorem, this is equivalent to $\Psi(x) \in \Tate(\cat A)$.
 \end{enumerate}
 \end{proof}
 
@@ -514,7 +521,227 @@ Let $k$ be a field, take $\cat C = \langle M\,|\, M[x^{-1}]/y M[x^{-1}] = 0\rang
 Intuitively, $\cat C = \QCoh(\AA^2/\{x=0, y\neq 0\})$.
 \end{ex}
 
+\section{Talk 3: Localizing invariants of categories of sheaves}
+Recall the category 
+\begin{align*}
+\Shv_{\ge0}(\RR;\Sp) &\simeq \Shv_{\RR\times \RR_{\ge0}}(\RR; \Sp) \\
+&\simeq \Stab^{\mathrm{cont}}(\RR\cup \{\infty\}) 
+= \set{F\colon \RR_{\le}^{\op} \to \Sp}{\forall a\in \RR, F(a) = \varinjlim_{b<a} F(b)}.
+\end{align*}
 
+\begin{prop}
+Take any accessible localizing invariant $\Phi\colon \Cat^{\mathrm{perf}} \to \cat E$, where $\cat E$ is a stable accessible category. Then
+\[
+\Phi^{\mathrm{cont}}(\Shv_{\ge0}(\RR;\Sp)) = 0.
+\]
+\end{prop}
+
+\begin{applications}
+\begin{enumerate}[(a)]
+\item $K\colon \Cat^{\mathrm{perf}} \to \Sp$ commutes with small products.
+\item Computation of $F^{\mathrm{cont}}(\Shv(X;\cat C))$, where $X$ is a finite CW complex and $\cat C$ is a dualizable category.
+\end{enumerate}
+\end{applications}
+
+\textbf{Step 1:} $K_0$ commutes with small products.
+\begin{prop}[Heller's criterion]
+If $\cat T$ is a small triangulated category, and $x,y\in \cat T$, then the following are equivalent:
+\begin{enumerate}[(i)]
+\item $[x] = [y]$ in $K_0(\cat T)$.
+\item There exist $z,u,v\in \cat T$ and distinguished triangles 
+\begin{align*}
+u \to x\oplus z \to v \\
+u \to y\oplus z \to v.
+\end{align*}
+\end{enumerate}
+\end{prop}
+
+\begin{cor}
+$K_i(\prod_i \cat T_i)\isoto \prod_i K_0(\cat T_i)$.
+\end{cor}
+
+\textbf{Step 2:} We have a short exact sequence
+\[
+0\to \Shv_{\ge0}(\RR; \Sp) \to \Fun(\QQ_{\le}^{\op}, \Sp)\xto{F} \prod_{\QQ} \Sp \to 0,
+\]
+where $F$ is given by
+\[
+F(G)_a = \Cone\bigl(\varinjlim_{b>a} G(b) \to G(a)\bigr).
+\]
+Note that $F^R$ is fully faithful, i.e., $F\circ F^R = \id$. It follows that
+\begin{align*}
+\Shv_{\ge0}(\RR; \Sp) &\simeq F^R\Bigl(\prod_{\QQ}\Sp\Bigr)^{\perp} \simeq {}^{\perp} F^R\Bigl(\prod_{\QQ}\Sp\Bigr) = \Ker(F).
+\end{align*}
+Note also that the categories $\cat A\coloneqq \Fun(\QQ_{\le}^\op, \Sp)$ and $\cat B \coloneqq \prod_{\QQ}\Sp$ are compactly generated.
+
+We need to show that $F^{\omega} \colon \cat A^\omega \to \cat B^\omega$ is a K-equivalence, i.e., there exists $G\colon \cat B^\omega \to \cat A^\omega$ such that $[F^\omega\circ G] = [\id]$ in $K_0(\Fun(\cat B^\omega, \cat B^\omega))$ and $[G\circ F^\omega] = [\id]$ in $K_0(\Fun(\cat A^\omega, \cat A^\omega))$.
+
+Here, we take $G\colon \cat B^\omega = \bigoplus_{\QQ}\Sp^{\omega} \to \cat A^\omega$ corresponding to $(h_a)_{a\in \QQ}$, where
+\[
+h_a(b)= \begin{cases}
+\SS, & \text{if $b\le a$}, \\
+0, & \text{if $b>a$}.
+\end{cases}
+\]
+With this definition, $F^\omega\circ G = \id$. It remains to show $[G\circ F^\omega] = [\id]$ in $K_0(\Fun(\cat A^\omega, \cat A^\omega))$.
+
+\begin{prop}
+$K_0(\Fun(\cat A^\omega, \cat A^\omega)) = \End(\bigoplus_{\QQ}\ZZ)$.
+\end{prop}
+
+\textbf{Step~3:}
+\begin{prop}
+Let $\cat C$ be a small idempotent-complete stable category with semiorthogonal decomposition
+\[
+\cat C = \langle \cat A_0, \cat A_1, \dotsc \rangle,
+\]
+meaning that $\Hom(\cat A_i, \cat A_j) = 0$ for $i>j$, and the $\cat A_i$ generate $\cat C$. Write $\cat B_n \coloneqq \langle \cat A_0,\dotsc,\cat A_n\rangle \subseteq \cat C$. Then we have functors $\cat B_{n+1} \to \cat B_n$ which are right adjoint to the inclusion. Consider the composite
+\[
+\varprojlim_n \cat B_n \to \cat B_k \xrightarrow{p_k} \cat A_k,
+\]
+where $p_k$ is the right adjoint to the inclusion. 
+
+Then the functor
+\[
+\varprojlim_n \cat B_n \to \prod_{n\in \NN} \cat A_n
+\]
+is a K-equivalence.
+\end{prop}
+\begin{proof}[Sketch:]
+Write $\cat B \coloneqq \varprojlim_n \cat B_n$ and write $\pi_n\colon \cat B\to \cat A_n$. Consider the inclusions $\iota_n\colon \cat A_n\to \cat B$, given by compatible functors $\cat A_n\to \cat B_n \injto \cat B_k$. Write $\iota\colon \prod_n \cat A_n \to \cat B$. 
+
+Then $\pi\circ\iota = \id$ of $\prod_n\cat A_n$.
+
+\begin{claim}
+$[\iota\circ\pi] = [\id]$ in $K_0(\Fun(\cat B, \cat B))$.
+\end{claim}
+Consider the functor 
+\[
+\psi_n\colon \cat B\to \cat B_{n-1}^{\perp} \to \cat B,
+\]
+where each $\cat B_n \injto \cat B$ (so that the right orthogonal makes sense) and we put $\cat B_{-1} = 0$. Now observe: consider the exact sequence
+\[
+\bigoplus_{n\ge1} \psi_n \to \bigoplus_{n\ge0} \psi_n \epito \iota\circ\pi,
+\]
+where the first map is induced by the maps $\psi_{n+1} \to \psi_n$. We compute
+\[
+[\id]  = [\psi_0] = \Bigl[\bigoplus_{n\ge0} \psi_n\Bigr] - \Bigl[\bigoplus_{n\ge1}\psi_n\Bigr] = [\iota\circ\pi].
+\]
+\end{proof}
+
+\begin{cor}
+Let $\cat B_0\from \cat B_1 \from \cat B_2 \from \dotsb$ be an inverse sequence in $\Cat^{\mathrm{perf}}$ such that $\cat B_{n+1} \to \cat b_n$ has a fully faithful right adjoint. Then 
+\[
+K_0(\varprojlim_n \cat B_n) = \varprojlim_n K_0(\cat B_n).
+\]
+\end{cor}
+\begin{proof}
+Apply the above to $\varinjlim_n\cat B_n$ with respect to the right adjoints. Denote $\cat A_n = \Ker(\cat B_{n+1} \to \cat B)$. Then
+\[
+K_0\bigl(\varprojlim_n \cat B_n\bigr) \simeq K_0\Bigl(\prod_n\cat A_n\Bigr) = \prod_n K_0(\cat A_n) = \varprojlim_n K_0(\cat B_n).
+\]
+\end{proof}
+
+\begin{cor}
+$K_0(\Fun(\cat A^\omega, \cat A^\omega)) = \End\Bigl(\bigoplus_{\QQ}\ZZ\Bigr)$.
+\end{cor}
+\begin{proof}
+Choose a bijection $\NN \isoto \QQ$, $n\mapsto a_n$. Let $\cat C_n \subseteq \cat A^\omega$ be a stable subcategory generated by the representable presheaves $h_{a_0},\dotsc,h_{a_n}$. Then
+\begin{align*}
+K_0(\Fun(\cat A^\omega, \cat A^\omega)) &= \varprojlim_n K_0(\Fun(\cat C_n, \cat A^\omega)) \simeq \varprojlim_n K_0(\Fun([n], \cat A^\omega)) \\
+&= \varprojlim_n \prod_{i=0}^n K_0(\cat A^\omega) = \End\Bigl(\bigoplus_{\QQ}\ZZ \Bigr),
+\end{align*}
+since we know that
+\[
+K_0(\cat A^\omega) = \bigoplus_{\QQ} K_0(\Sp^\omega) = \bigoplus_{\QQ}\ZZ.
+\]
+\end{proof}
+
+Recall the functor $G\colon \cat B^\omega \to \cat A^\omega$ from the above. Then $(G\circ F^\omega)(h_a) = h_a$, and this finally implies $[G\circ F^\omega] = [\id]$.
+
+\begin{thm}
+\begin{enumerate}[(1)]
+\item Let $F,G\colon \Cat^{\mathrm{perf}} \to \cat E$ be accessible localizing invariants and let $\varphi\colon F\to G$ be map and suppose that $\cat E$ has a non-degenerate t-structure. Suppose moreover that $\pi_0\varphi\colon \pi_0F \to \pi_0G$ is an isomorphism.
+
+Then $\varphi\colon F\isoto G$ is an isomorphism.
+
+\item $K\colon \Cat^{\mathrm{perf}} \to \Sp$ commutes with small products.
+\end{enumerate}
+\end{thm}
+\begin{proof}
+For the proof that (1)$\implies$(2) we need to show: for any set $I$, the map
+\[
+K\Bigl(\prod_I \cat C\Bigr) \xto{\varphi} \prod_IK(\cat C)
+\]
+is an isomorphism. Observe that the source and target are localizing invariants and $\pi_0\varphi$ is an isomorphism.
+
+It remains to prove (1). The fact that $\pi_0\varphi$ is an isomorphism implies that $\pi_n\varphi$ is an isomorphism for $n\le 0$. Now, consider the resolution
+\[
+0\to \cat C \to \Ind(\cat C^{\omega_1}) \to \Calk_{\omega_1}(\cat C) \to 0
+\]
+and proceed by induction.
+\end{proof}
+
+We also deduce from the proof that for all dualizable categories $\cat D$, $\pi_n\varphi^{\mathrm{cont}}_{\cat D}$ is an isomorphism for $n\le -1$. Then we use
+\[
+0\to \Shv_{>0}(\RR;\Sp) \to \Shv_{\ge0}(\RR;\Sp) \xrightarrow{\Gamma_c(\blank)[1]} \Sp \to 0.
+\]
+An inductive argument shows that $\pi_n\varphi$ is an isomorphism for all $n\in\ZZ$.
+
+\begin{cor}
+For any accessible localizing invariant $F\colon \Cat^{\mathrm{perf}} \to \cat E$ we have
+\[
+F^{\mathrm{cont}}\bigl(\Shv(\RR\cup\{\infty\}; \Sp)\bigr) = 0.
+\]
+\end{cor}
+\begin{proof}
+Observe the exact sequence
+\[
+0\to \Shv_{\ge0}(\RR;\Sp) \xto{\ol\varphi_\gamma^*} \Shv(\RR\cup \{\infty\}; \Sp) \xto{\alpha} \Shv_{\le 0}(\RR; \Sp),
+\]
+where $\alpha$ is the left adjoint to $j_!\varphi_{-\gamma}^*$: Let $\gamma = \RR_{\le 0}$ and write $\RR_{\gamma}$ for $\RR$ equipped with the $\gamma$-topology ($U \subseteq \RR_\gamma$ is open if $U + \gamma = U$ and $U\subseteq \RR$ is open). Similarly, define $\RR_{-\gamma}$.
+
+Then $\varphi_\gamma \colon \RR\to \RR_{\gamma}$, $\varphi_{-\gamma} \colon \RR \to \RR_{-\gamma}$ and $\varphi_\gamma\colon \RR\cup\{\infty\} \to \ol{\RR}_\gamma$.
+\end{proof}
+
+\begin{thm}
+Let $X$ be a finite CW complex and let $\cat C$ be a dualizable category. Let $F\colon \Cat^{\mathrm{perf}} \to \cat E$ be an accessible localizing invariant.
+
+Then $F^{\mathrm{cont}}(\Shv(X;\cat C)) = F^{\mathrm{cont}}(\cat C)^X$, where the right hand side is the $X$-$\infty$-groupoid.
+\end{thm}
+
+Observe that for all finite CW complexes $Y$ we have an isomorphism
+\[
+F^{\mathrm{cont}}(\Shv(Y\times [0,1], \cat C)) \isoto F^{\mathrm{cont}}(\Shv(Y; \cat C)).
+\]
+we get a functor $G\colon (S^{\mathrm{fin}})^\op \to \cat E$ such that if $X$ is a finite CW complex, then $G(X) = F^{\mathrm{cont}}(\Shv(X;\cat C))$. We know $G(*) = F^{\mathrm{cont}}(\cat C)$ and $G(\emptyset) = 0$.
+
+We need to show that $G$ commutes with pullbacks. Consider a cellular embedding $X\injto Y$ of finite CW complexes, and let $X\to Z$ be some continuous map of finite CW complexes. Then we have a commutative diagram
+\[
+\begin{tikzcd}
+\Shv(Y\sqcup_XZ; \Sp) \ar[r]\ar[d] & \Shv(Y;\Sp) \ar[d] \\
+\Shv(Z; \Sp) \ar[r] & \Shv(X;\Sp)
+\end{tikzcd}
+\]
+which is a pullback square both in $\Pr^L_{\mathrm{st}}$ and in $\Cat^{\mathrm{dual}}_{\mathrm{st}}$ (because the right vertical map is a quotient functor).
+
+We deduce that $F^{\mathrm{cont}}$ commutes with such pullbacks:
+
+\begin{lem}
+Let
+\[
+\begin{tikzcd}
+\cat A \ar[d] \ar[r] & \cat B \ar[d] \\
+\cat C \ar[r] & \cat D
+\end{tikzcd}
+\]
+be a pullback square in $\Pr^L_{\mathrm{st}}$. Assume that $\cat A, \cat B, \cat C, \cat D$ are dualizable, all functors are strongly continuous and the right vertical map is a localization. 
+
+Then the left vertical map is a localization, $\cat A = \cat B\times_{\cat D}^{\mathrm{dual}} \cat C$ and
+\[
+F^{\mathrm{cont}}(\cat A) = F^{\mathrm{cont}}(\cat B)\times_{F^{\mathrm{cont}}(\cat D)} F^{\mathrm{cont}}(\cat C).
+\]
+\end{lem}
 
 
 \end{document}

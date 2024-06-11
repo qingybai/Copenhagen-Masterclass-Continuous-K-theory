@@ -1,0 +1,314 @@
+\documentclass[draft]{amsart}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{tikz-cd}
+\usepackage{stmaryrd} % \mapsfrom
+\usepackage[shortlabels]{enumitem}
+\usepackage{geometry}
+\usepackage[final,kerning,spacing]{microtype}\frenchspacing
+\usepackage{csquotes}
+\usepackage[final]{hyperref}
+\usepackage[capitalize]{cleveref}
+\usepackage[inline]{showlabels}
+
+\newcommand{\todo}[1]{\textcolor{red}{TODO: #1}}
+
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\EE}{\mathbb{E}}
+\newcommand{\FF}{\mathbb{F}}
+\renewcommand{\AA}{\mathbb{A}}
+\renewcommand{\SS}{\mathbb{S}}
+\newcommand{\GG}{\mathbb{G}}
+\newcommand{\PP}{\mathbb{P}}
+
+\renewcommand{\H}{\mathrm{H}}
+\newcommand{\D}{\mathrm{D}}
+\newcommand{\R}{\mathrm{R}}
+\renewcommand{\O}{\mathcal{O}}
+
+\newcommand{\jhat}{\hat\jmath}
+
+\newcommand{\set}[2]{\left\{#1\,\middle|\,#2\right\}}
+\newcommand{\ol}[1]{\overline{#1}}
+\newcommand{\ul}[1]{\underline{#1}}
+\newcommand{\wh}[1]{\widehat{#1}}
+\newcommand{\wt}[1]{\widetilde{#1}}
+\newcommand{\cat}[1]{\mathcal{#1}}
+\newcommand{\sheaf}[1]{\mathcal{#1}}
+
+\renewcommand{\setminus}{\smallsetminus}
+\renewcommand{\emptyset}{\vanothing}
+\newcommand{\ssubset}{\Subset} 
+\newcommand{\ssupset}{\Supset} 
+\newcommand{\op}{\mathrm{op}}
+
+\newcommand{\too}{\longrightarrow}
+\newcommand{\xto}[1]{\mathbin{\xrightarrow{#1}}}
+\newcommand{\isoto}{\mathbin{\xrightarrow{\sim}}}
+\newcommand{\injto}{\mathbin{\hookrightarrow}}
+\newcommand{\injtoo}{\mathbin{\longhookrightarrow}}
+\newcommand{\epito}{\mathbin{\to\kern-.8em\to}}
+\newcommand{\epitoo}{\mathbin{\too\kern-.8em\to}}
+
+\renewcommand{\Pr}{\mathrm{Pr}}
+\newcommand{\Stab}{\mathrm{Stab}}
+
+\newcommand{\blank}{-} % todo
+
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Anima}{Ani}
+\DeclareMathOperator{\fib}{fib}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Spa}{Spa}
+\DeclareMathOperator{\dlog}{dlog}
+\DeclareMathOperator{\SingularSupport}{SS}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\Map}{Map}
+\DeclareMathOperator{\Open}{Open}
+\DeclareMathOperator{\Seminorm}{Seminorm}
+\DeclareMathOperator{\map}{map}
+\DeclareMathOperator{\Shv}{Shv}
+\DeclareMathOperator{\Nuc}{Nuc}
+\DeclareMathOperator{\Cat}{Cat}
+\DeclareMathOperator{\CompAss}{CompAss}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\Fun}{Fun}
+\DeclareMathOperator{\Mod}{Mod}
+\DeclareMathOperator{\Perf}{Perf}
+\DeclareMathOperator{\CompHaus}{CompHaus}
+\DeclareMathOperator{\Spf}{Spf}
+\DeclareMathOperator{\PSh}{PSh}
+\DeclareMathOperator{\Corr}{Corr}
+\DeclareMathOperator{\Pro}{Pro}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\Tate}{Tate}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Vect}{Vect}
+\DeclareMathOperator{\Spv}{Spv}
+\DeclareMathOperator{\Calk}{Calk}
+\DeclareMathOperator{\QCoh}{QCoh}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator*{\indinjlim}{\text{``}\varinjlim\text{''}} % todo
+\DeclareMathOperator*{\indprojlim}{\text{``}\varprojlim\text{''}} % todo
+\DeclareMathOperator*{\colim}{colim}
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{properties}[thm]{Properties}
+\newtheorem{fact}[thm]{Fact}
+\newtheorem{ex}[thm]{Example}
+\newtheorem{exercise}[thm]{Exercise}
+\newtheorem{warning}[thm]{Warning}
+\newtheorem*{claim}{Claim}
+\newtheorem*{notation}{Notation}
+
+\begin{document}
+\title{Continuous K-Theory and Geometric Topology}
+\author{Thomas Nikolaus}
+\maketitle
+\tableofcontents
+
+\section{Talk 1}
+Recall that $\Pr^L_{\mathrm{st}}$ is the category of presentable stable categories. We denote by $\otimes$ the Lurie tensor product; then $\Fun^L(\cat C, \cat D)$ is the internal Hom and the category $\Sp$ of spectra is the unit for $\otimes$.
+
+\begin{defn}
+$\cat C$ is \emph{dualizable} if $\cat C$ is dualizable in $(\Pr^L_{\mathrm{st}}, \otimes)$. The dual is then given by $\cat C^\vee = \Fun^L(\cat C, \Sp)$.
+\end{defn}
+
+\begin{defn}
+\begin{enumerate}[(i)]
+\item A functor $F\colon \cat D\to \cat E$ is called a \emph{homological epi} if the restriction $\Ind(\cat E)\to \Ind(\cat D)$ is fully faithful or, equivalently, if the induced functor $\Ind(\cat D)\to \Ind(\cat E)$ is a Bousfield localization.
+
+\item A map $R\to S$ of ring spectra is a \emph{homological epi} if the following equivalent conditions hold:
+\begin{itemize}
+\item the induced functor $\Mod(R)^{\omega} \to \Mod(S)^\omega$ is a homological epi.
+\item $\Mod(R) \to \Mod(S)$ is a Bousfield localization.
+\item the restriction $\Mod(S) \to \Mod(R)$ is fully faithful.
+\item $S\otimes_RS \isoto S$.
+\item $S\sqcup_RS \isoto S$, where the pushout is taken in $\EE_1$-rings.
+\item $I\otimes_RI \isoto I$, where $I = \fib(R\to S)$.
+\end{itemize}
+
+\item A non-unital ring spectrum $R$ is called \emph{H-unital} if $R^+ = R\oplus \SS \to \SS$ is a homological epi, where $\SS$ is the sphere spectrum.
+\end{enumerate}
+\end{defn}
+
+\begin{defn}
+\begin{enumerate}[(i)]
+\item A map $x\to y$ in $\cat C$ is called \emph{(weakly) compact} if for every filtered colimit $d = \colim_i d_i$ and every map $y\to d$, the composite $x\to y\to d$ factors over some $d_{i_0}$:
+\[
+\begin{tikzcd}
+x \ar[d,dashed] \ar[r] & y \ar[d] \\
+d_{i_0} \ar[r] & \colim_i d_i.
+\end{tikzcd}
+\]
+
+\item An object $x \in \cat C$ is called \emph{compactly exhaustible} if it can be written as
+\[
+x = \colim (x_0\to x_1\to \dotsb)
+\]
+with compact transition maps $x_i\to x_{i+1}$.
+
+\item An object $x\in \cat C$ is called \emph{transfinitely compactly exhaustible} if it can be written as
+\[
+x = \colim_{i\in I} x_i,
+\]
+where $I$ is filtered, without terminal object, and \emph{antisymmetric} (i.e., the non-invertible morphisms in $I$ form an ideal; equivalently one-sided inverses are invertible), such that for every non-invertible map $i\to j$ in $I$, the induced map $x_i\to x_j$ is compact.
+\end{enumerate}
+\end{defn}
+
+\begin{thm}\label{Nikolaus:dualizable}
+For $\cat C \in \Pr^L_{\mathrm{st}}$ the following are equivalent:
+\begin{enumerate}[(1)]
+\item $\cat C$ is dualizable.
+
+\item $\cat C$ is a retract in $\Pr^L_{\mathrm{st}}$ of a compactly generated stable category, i.e., $\cat C = \Ind(\cat C_0)$ for a small stable category $\cat C_0$.
+
+\item $\cat C$ is the kernel of 
+\[
+\Ind(\cat D) \xrightarrow{\Ind(F)} \Ind(\cat E),
+\]
+where $\cat D, \cat E$ are small stable categories and $F\colon \cat D\to \cat E$ is an exact homological epi.
+
+\item $\cat C$ is the kernel of 
+\[
+\Mod(R) \to \Mod(S)
+\]
+for a map $R\to S$ of ring spectra which is a homological epi. In this case we write $\cat C = \Mod(R,I)$.
+
+\item $\cat C$ is the kernel of 
+\[
+\Mod(R^+) \to \Mod(\SS) = \Sp,
+\]
+where $R$ is an H-unital ring spectrum. In this case we write $\cat C = \Mod_\H(R)$.
+
+\item The colimit functor $k\colon \Ind(\cat C) \to \cat C$ admits a left adjoint $\jhat$ (which is automatically fully faithful since the right adjoint $j$ of $k$ is fully faithful).
+
+\item $\cat C$ is $\omega_1$-compactly generated and the colimit
+\[
+k\colon \Ind(\cat C^\omega_1) \to \cat C
+\]
+admits a left adjoint.
+
+\item $\cat C$ is generated under colimits by compactly exhaustible objects.
+
+\item Every object in $\cat C$ is transfinitely compactly exhaustible.
+
+\item (AB6) Products in $\cat C$ distribute over filtered colimits: the natural map
+\[
+\colim_{(i_k)_k \in \prod_{k\in K}I_k} \prod_{k\in K} x_{k,i_k} \isoto
+\prod_{k\in K} \colim_{i\in I_k} x_{k,i}
+\]
+is an isomorphism in $\cat C$.\footnote{Since we are in a stable category, we may equivalently replace products with limits. Moreover, one can assume that all $I_k$'s are the same.}
+\end{enumerate}
+\end{thm}
+\begin{proof}[\enquote{Proofs}:]
+If $\cat C$ is dualizable, we have a Bousfield localization $\Ind(\cat C^\kappa)\to \cat C$. We then obtain a lifting diagram
+\[
+\begin{tikzcd}
+\Ind(\cat C^\kappa) \otimes \cat C^\vee \ar[r] & \cat C\otimes \cat C^\vee \\
+& \Sp \ar[u,"\text{coev}"'] \ar[ul,dashed],
+\end{tikzcd}
+\]
+where the lift exists, because a functor from $\Sp$ is uniquely determined by specifying the image of $\SS$. Reinterpreting, we obtain a lift
+\[
+\begin{tikzcd}
+& \Ind(\cat C^\kappa) \ar[d] \\
+\cat C \ar[ur,dashed] \ar[r,equals] & \cat C.
+\end{tikzcd}
+\]
+
+For the implication (2)$\implies$(6), write $\cat C = \Ind(\cat C_0)$. Then we have
+\[
+\jhat = \Ind(\cat C_0\injto \cat C) \colon \cat C = \Ind(\cat C_0)\to \Ind(\cat C).
+\]
+To pass to retracts, use some abstract argument.
+
+For the implication (6)$\implies$(2), use $\jhat\colon \cat C \to \Ind(\cat C)$.
+
+Ad (7)$\implies$(3): Consider 
+\[
+\cat C \xrightarrow{\jhat} \Ind(\cat C^{\omega_1}) \to \Ind(\cat C^{\omega_1})/\cat C = \Ind(\Calk^{\mathrm{cont}}(\cat C)).
+\]
+To see the equality, use that $\cat C^{\omega_1} \xrightarrow{\mathrm{pr}} \Calk^{\mathrm{cont}}(\cat C)$ is a homological epi.
+
+Finally, for (6)$\iff$(10), note that distributivity is equivalent to $k\colon \Ind(\cat C)\to \cat C$ preserving products. (This relies on the fact that the category of anima satisfies (AB6).)
+\end{proof}
+
+\begin{ex}
+The category $\Shv(X)$ of sheaves with values in $\Sp$ on a locally compact space $X$ is generated by sheaves of the form $\Sigma^\infty_+ \ul{U}$, where $\ul U$ is the sheaf on $X$ represented by $U$ and $\Sigma^\infty_+\colon \Anima \to \Sp$ is the suspension functor. Every inclusion $U \injto V$ in $\Open(X)$ factors through a compact subset $K$, that is, $U \to K\to V$. It follows that $\Sigma^\infty_+ \ul{U} \to \Sigma^\infty_+\ul{V}$ is a compact map. Finally, $\Sigma^\infty_+\ul{U}$ is compactly exhaustible if $U$ is, and every $U$ is a filtered colimit of such. Therefore, $\Shv(X)$ is dualizable.
+\end{ex}
+
+\begin{properties}[of dualizable categories]
+Let $\cat C, \cat D$ be dualizable categories.
+\begin{enumerate}[(a)]
+\item An object $x\in \cat C$ is compactly exhaustible if and only if $x$ is $\omega_1$-compact.
+
+\item A functor $F\colon \cat C\to \cat D$ in $\Pr^L$ is strongly continuous (meaning that $F$ admits a right adjoint that preserves colimits) if and only if $F$ preserves compact morphisms, if and only if the following diagram commutes:
+\[
+\begin{tikzcd}
+\Ind(\cat C) \ar[r,"\Ind(F)"] & \Ind(\cat D) \\
+\cat C \ar[u,"\jhat"] \ar[r,"F"'] & \cat D \ar[ul,Rightarrow,shorten=4mm, "\sim"'] \ar[u,"\jhat"'].
+\end{tikzcd}
+\]
+
+\item A morphism $x\to y$ in $\cat C$ is compact if it lifts to a map $jx \to \jhat y$ in $\Ind(\cat C)$. In this case, we define the space of \emph{compactly assembled maps} as the spectrum
+\[
+\map_{\cat C}^{\mathrm{ca}}(x,y)\coloneqq \map_{\Ind(\cat C)}(jx, \jhat y).
+\]
+
+\item If $x = \colim_{i\in I} x_i$ is $I$-compactly exhaustible, then $\jhat(x) = \colim_{i\in I} jx_i$ in $\Ind(\cat C)$.
+
+\item Recall the resolution 
+\[
+\cat C \to \Ind(\cat C^{\omega_1}) \to \Ind(\Calk^{\mathrm{cont}}(\cat C)),
+\]
+and denote $p\colon \cat C^{\omega_1} \to \Calk^{\mathrm{cont}}(\cat C)$ the projection. Then
+\[
+\map_{\Calk(\cat C)}(px, py) = \map_{\cat C}(x,y) / \map_{\cat C}^{\mathrm{ca}} (x,y).
+\]
+\end{enumerate}
+\end{properties}
+
+\begin{defn}
+We denote $\Pr^L_{\mathrm{dual}}$ the category of dualizable categories with strongly left adjoint functors.
+\end{defn}
+
+\begin{cor}
+A left adjoint functor $\Shv(X) \to \cat D$ is strongly left adjoint if the corresponding cosheaf $\sheaf F\colon \Open(X) \to \cat D$ satisfies the following condition: for every $U\ssubset V$, the induced map $\sheaf F(U) \to \sheaf F(V)$ is a compact morphism in $\cat D$.
+\end{cor}
+
+\begin{defn}
+We define the continuous K-theory of a dualizable category $\cat C$ as the fiber
+\[
+K^{\mathrm{cont}}(\cat C) = \fib\bigl(K(\cat C^{\omega_1}) \to K(\Calk^{\mathrm{cont}}(\cat C))\bigr) \cong \Omega K(\Calk^{\mathrm{cont}}(\cat C)).
+\]
+\end{defn}
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
