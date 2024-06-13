@@ -71,6 +71,7 @@
 \DeclareMathOperator{\id}{id}
 \DeclareMathOperator{\coShv}{coShv}
 \DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Mot}{Mot}
 \DeclareMathOperator{\CAlg}{CAlg}
 \DeclareMathOperator{\Spa}{Spa}
 \DeclareMathOperator{\dlog}{dlog}
@@ -95,6 +96,7 @@
 \DeclareMathOperator{\Corr}{Corr}
 \DeclareMathOperator{\Pro}{Pro}
 \DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\Loc}{Loc}
 \DeclareMathOperator{\Tate}{Tate}
 \DeclareMathOperator{\Ext}{Ext}
 \DeclareMathOperator{\Vect}{Vect}
@@ -119,6 +121,7 @@
 \newtheorem{ex}[thm]{Example}
 \newtheorem{exercise}[thm]{Exercise}
 \newtheorem{corrections}[thm]{Corrections}
+\newtheorem{question}[thm]{Question}
 \newtheorem{warning}[thm]{Warning}
 \newtheorem*{claim}{Claim}
 \newtheorem*{notation}{Notation}
@@ -490,16 +493,152 @@ Let $\cat A\to \cat B$ be locally rigid.
 The category $\CAlg(\Pr^L_{\mathrm{st}})^\op$ carries a 6-functor formalism in which the exceptional maps are locally rigid maps.
 \end{thm}
 
+\section{Talk 3}
+
+\begin{defn}
+A \emph{simple anima} is a compact anima $Z$ together with a lift
+\[
+\begin{tikzcd}
+\chi^{\mathrm{loc}} \ar[r,phantom, "\in"] &[-2em] A(\mathrm{pt})\otimes Z \ar[r,"\text{Assembly}"] 
+& A(Z)\ar[d,"\simeq"] &[-1.5em] \ar[l,phantom, "\ni"] \chi = {[\SS]} \\
+& & K((\Sp^Z)^\omega) \ar[r,equals] & K(\SS[\Omega Z])
+\end{tikzcd}
+\]
+The $\infty$-groupoid $\Anima^{\mathrm{simple}}$ is defined as the pullback
+\[
+\begin{tikzcd}
+\Anima^{\mathrm{simple}} \ar[d] \ar[r] \ar[dr,phantom, very near start, "\lrcorner"] & \Anima_{*/} \ar[d] \\
+(\Anima^{\omega})^{\simeq} \ar[r] & \Anima,
+\end{tikzcd}
+\]
+where the bottom map is given by mapping a compact anima $\chi$ to the anima of lifts $\chi^{\mathrm{loc}}$ of $\chi$.
+\end{defn}
+
+\begin{thm}[Wall '65]
+A compact anima is a finite anima if and only if it refines to a simple anima.
+\end{thm}
+
+\begin{thm}[Whitehead '50]
+A homotopy equivalence between finite CW complexes is simple (i.e., homotopic to a composition of elementary expansion and collapse maps) if and only if it refines to a map in $\Anima^{\mathrm{simple}}$.
+\end{thm}
+
+\begin{thm}[Hatcher, Waldhausen, Waldhausen--Jahren--Rognes]
+The $\infty$-groupoid $\Anima^{\mathrm{simple}}$ is equivalent to Hatcher's classifying space of simple homotopy types, i.e., the geometric realization
+\[
+\lvert \{\mathrm{Polyhedra}, \textnormal{simple maps}\}\rvert \simeq \lvert \{ \mathrm{sSet}^{\mathrm{fin}}_{\mathrm{nd}}, \textnormal{simple maps}\}\rvert.
+\]
+\end{thm}
+
+\begin{thm}
+\begin{enumerate}[(1)]
+\item West '77: Every compact manifold (AMR) has the homotopy type of a finite CW complex.
+
+\item Chapman '65: Every homeomorphism between finite CW complexes is a simple homotopy equivalence.
+\end{enumerate}
+\end{thm}
+
+We construct a functor
+\[
+\begin{Bmatrix}
+\text{nice compact topological} \\
+\text{spaces with homeomorphisms}
+\end{Bmatrix} \to \Anima^{\mathrm{simple}}.
+\]
+
+Recall: Let $X$ be a locally compact Hausdorff space. We have seen that $\Shv(X;\Sp)$ is dualizable.
+
+\begin{defn}
+Let $\cat C$ be dualizable. We define
+\[
+\wh{\coShv}(X;\cat C) \coloneqq \iHom^{\mathrm{dual}}(\Shv(X);\cat C) \subseteq \Ind(\coShv(X;\cat C)).
+\]
+It is covariantly functorial in proper maps $f\colon X\to Y$ induced by $f^*\colon \Shv(Y) \to \Shv(X)$.
+
+Moreover, we define 
+\[
+\wh{\coShv}_{\mathrm{cs}}(X;\cat C) = \colim_{\substack{K\subseteq X\\ \text{compact}}} \wh{\coShv}(K;\cat C),
+\]
+which is functorial in all maps.
+\end{defn}
+
+\begin{rem}
+We have
+\[
+\bigl(\wh{\coShv}(X;\cat C)\bigr)^{\omega} = \Fun^{sL}\bigl(\Sp, \wh{\coShv}(X;\cat C)\bigr) = \Fun^{sL}(\Shv(X);\cat C) \subseteq \coShv(X;\cat C),
+\]
+which is a full subcategory on all cosheaves $\sheaf F$ such that $\sheaf F(U)\to \sheaf F(V)$ is compact for $U\Subset V$.
+\end{rem}
+
+\begin{prop}
+Assume that the topos $\Shv(X;\Anima)$ is of locally constant shape (e.g., if $X$ is hypercomplete and sublocally contractible, or is ANR). Equivalently, the functor $p^*\colon \Anima \to \Shv(X,\Anima)$ has a left adjoint $p_{\natural}$ (in addition to its obvious right adjoint $p_*$).
+
+Then $\Shv(X; \Sp)$ is proper. If $X$ is countable at $\infty$, then it is $\omega_1$-compact.
+\end{prop}
+\begin{proof}
+We need to show that the evaluation
+\[
+\Shv(X;\Sp) \otimes \Shv(X;\Sp) \xrightarrow{\otimes=\Delta^*} \Shv(X;\Sp) \xrightarrow{p_!} \Sp
+\]
+is strongly left adjoint. Since $\Delta^*$ is strongly left adjoint, we have to show that $p_!$ is strongly left adjoint. As $p_!$ is dual to $p^*$, this is the case if and only if $p^*$ admits a left adjoint.
+\end{proof}
+
+\begin{cor}
+Under these assumptions we have
+\begin{align*}
+K^{\mathrm{cont}}(\wh{\coShv}(X;\cat C)) &= {KK}^{\mathrm{cont}}(\Shv(X); \cat C) \stackrel{\text{def}}{=} \map_{\Mot}(\cat U\Shv(X), \cat U\cat C) \\
+&\cong \H_{\mathrm{lf}}(X;K^{\mathrm{cont}}(\cat C)) = p_*p^!K^{\mathrm{cont}}(\cat C) \\
+&\cong \Pi_\infty X \otimes K^{\mathrm{cont}}(\cat C) \qquad\text{(if $X$ is compact)}
+\end{align*}
+where $\cat U$ is the universal localizing invariant.
+\end{cor}
+
+\begin{prop}
+Let $X\in \LCHaus$ be $\sigma$-compact and of stably locally constant shape.
+There is a canonical compact object
+\[
+\chi^{\mathrm{loc}} \in \wh{\coShv}(X;\Sp)
+\]
+given as $p_\natural = p_!(\blank\otimes \omega_X) \colon \Shv(X;\Sp) \to \Sp$. As a cosheaf it is given by $U\mapsto \Sigma^\infty_+\Pi_\infty U$.
+\end{prop}
+
+\begin{cor}
+If $X$ is compact, then $\chi^{\mathrm{loc}} \in \Pi_\infty X\otimes K^{\mathrm{cont}}\Sp$.
+\end{cor}
+
+\begin{question}
+Is there a \enquote{nice} description of $K_0^{\mathrm{cont}}(\cat C)$?
+\end{question}
+
+\begin{thm}[Bartels--N.]
+There is a strongly continuous functor 
+\[
+A\colon \wh{\coShv}_{\mathrm{cs}}(X;\cat C) \to \cat C^{\Pi_\infty X} = \Loc(X;\cat C)
+\]
+with the following properties:
+\begin{enumerate}[(i)]
+\item It induces the assembly map on K-theory.
+\item It takes $\chi^{\mathrm{loc}}$ to $\chi = \SS$ if $X$ is compact and $\cat C = \Sp$.
+\end{enumerate}
+\end{thm}
+\begin{proof}[Proof/Construction]
+We prove (i) under the assumption that $X$ is compact. Then
+\begin{align*}
+\wh{\coShv}(X;\cat C) &= \iHom^{\mathrm{dual}}(\Shv(X);\cat C) \xrightarrow{\otimes \Sp^{\Pi_\infty X}} \iHom\bigl(\Shv(X)\otimes \Sp^{\Pi_\infty X}, \cat C^{\Pi_\infty X}\bigr) \\
+&\xrightarrow{D^*} \iHom^{\mathrm{dual}}(\Sp, \cat C^{\Pi_\infty X}) = \cat C^{\Pi_\infty X},
+\end{align*}
+where $D\colon \Sp \to \Shv(X)\otimes \Sp^{\Pi_\infty X}$ is left adjoint to
+\[
+\Shv(X)\otimes \Sp^{\Pi_\infty X} \xrightarrow{\psi^*} \Shv(X) \otimes \Shv(X)\xrightarrow{\Delta^*} \Shv(X) \to \Sp.
+\]
+\end{proof}
+
+
+
+
+
+
+
+
+
 
 \end{document}
-
-
-
-
-
-
-
-
-
-
-

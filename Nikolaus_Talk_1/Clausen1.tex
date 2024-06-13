@@ -58,10 +58,14 @@
 \newcommand{\Stab}{\mathrm{Stab}}
 
 \newcommand{\blank}{-} % todo
+\newcommand{\one}{\mathbf{1}}
 
 \DeclareMathOperator{\Spec}{Spec}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\fib}{fib}
+\DeclareMathOperator{\Closed}{Closed}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Idem}{Idem}
 \DeclareMathOperator{\CAlg}{CAlg}
 \DeclareMathOperator{\Sym}{Sym}
 \DeclareMathOperator{\Null}{Null}
@@ -110,6 +114,7 @@
 \theoremstyle{definition}
 \newtheorem{defn}[thm]{Definition}
 \newtheorem{rem}[thm]{Remark}
+\newtheorem{question}[thm]{Question}
 \newtheorem{fact}[thm]{Fact}
 \newtheorem{ex}[thm]{Example}
 \newtheorem{exercise}[thm]{Exercise}
@@ -378,7 +383,7 @@ The condition for $\frac12$ is equivalent to the condition for any $\lambda$ wit
 \end{rem}
 
 \begin{thm}
-We have that $\Mod_{\CC^{\mathrm{gas}}} \subseteq \Mod_{\CC}(\CondAb^{\mathrm{light}})$ is an abelian subcategory closed under all colimits, limits, all $\R^i\varprojlim$, $\L^i\varinjlim$ and $\R^i\iHom(X,\blank)$, for all $X\in \Mod_{\CC}(\CondAb^{\mathrm{light}})$.
+The full subcategory $\Mod_{\CC^{\mathrm{gas}}} \subseteq \Mod_{\CC}(\CondAb^{\mathrm{light}})$ of gaseous $\CC$-vector spaces is abelian, closed under all colimits, limits, extensions, all $\R^i\varprojlim$, $\L^i\varinjlim$ and $\R^i\iHom(X,\blank)$, for all $X\in \Mod_{\CC}(\CondAb^{\mathrm{light}})$.
 \end{thm}
 \begin{proof}
 Everything follows from the (interesting) fact that $\ZZ[\NN\cup\{\infty\}]/\ZZ\infty$ is \emph{(internally) projective} in $\Mod_{\CC}(\CondAb^{\mathrm{light}})$.
@@ -455,6 +460,182 @@ D(R) \coloneqq \Mod_R(D(\CC^{\mathrm{gas}}))
 \]
 localizes along $\cat M_B(R(*))$ (the abstract $\CC$-algebra underlying $\cat M_B(R)$).
 \end{thm}
+
+\section{Talk 3: Quasicoherent sheaves in complex geometry (joint with P. Scholze)}
+Recall, we considered $R \in \CAlg(D_{\ge0}(\CC^{\mathrm{gas}}))^{\mathrm{bded}}$, meaning that for all $f\in R$ there exists $\lambda\in \CC^\times$ such that $\lambda f$ is topologically nilpotent and similarly for $f\in R(S)$ with $S \in \Pro(\Fin)^{\mathrm{light}}$.\footnote{An analogous definition was considered by Ralf  Meyer.}
+
+\begin{thm}\label{Clausen:Gelfand}
+The category $D(R) \coloneqq \Mod_R(D(\CC^{\mathrm{gas}}))$ localizes on the compact Hausdorff space $\cat M_B(R(*)) = \Hom_{\CC}(R(*), \CC)$, called the \emph{Gelfand spectrum}.
+\end{thm}
+
+Note that under the boundedness condition we even have a closed embedding
+\[
+\cat M_B(R(*)) \subseteq \prod_{f\in R(*)} \CC_{\lvert\cdot\rvert \le C_f},
+\]
+where $C_f \in \RR_{>0}$ depends on $f$.
+
+\begin{ex}
+If $R = \O^{\mathrm{hol}}(\DD^n)$, then $\cat M_B(R(*)) = \DD^n$.
+\end{ex}
+
+\begin{defn}[Balmer--Krause--Stevenson]
+Let $\cat C \in \CAlg(\Pr^L)$. Define a full subcategory
+\[
+\Idem(\cat C) \subseteq \CAlg(\cat C)
+\]
+consisting of the \emph{idempotent} algebras, i.e., algebras $R$ such that $\one\to R$ induces an isomorphism $R = \one\otimes R \isoto R\otimes R$ (equivalently, $m\colon R\otimes R\isoto R$ is an isomorphism).
+\end{defn}
+
+\begin{prop}
+The category $\Idem(\cat C)$ is a poset.\footnote{This means that the anima of maps is either empty or contractible.}
+
+Moreover, $\Idem(\cat C)$ has arbitrary colimits and finite limits, which are calculated as follows:
+\begin{enumerate}[(1)]
+\item sifted colimits are calculated in $\cat C$.
+\item finite coproducts are calculated by $\otimes$.
+\item pullbacks are computed as the fiber product 
+\[
+\begin{tikzcd}
+\text{(pullback)} \ar[d] \ar[r] \ar[dr,phantom, very near start, "\lrcorner"] & R \ar[d] \\
+S \ar[r] & S\otimes R.
+\end{tikzcd}
+\]
+\end{enumerate}
+Moreover, $\Idem(\cat C)$ is a \emph{locale} (i.e., it satisfies the same properties as open subsets of a topological space).
+\end{prop}
+
+A more precise version of \cref{Clausen:Gelfand} is the following:
+\begin{thm}
+There exists a map of posets (locales$^{\op}$?)
+\[
+\Closed(\cat M_B(R)) \to \Idem(D(R))^\op
+\]
+preserving finite colimits and limits.
+\end{thm}
+
+The map is uniquely determined by the following: For all $f\in R$ and $C\in \RR_{>0}$ it is given by
+\begin{align*}
+\{\lvert f\rvert \le C\} &\mapsto R\otimes_{\CC^{\mathrm{gas}}} \O(C\cdot \DD) /(T-f), \\
+\{\lvert f\rvert \ge C\} &\mapsto R\otimes_{\CC^{\mathrm{gas}}} \O\bigl(\{\lvert M\rvert \ge C\}\text{ merom. at $\infty$}\bigr)/(T-f).
+\end{align*}
+
+Explicitly, for any closed subset $K\subset \cat M_B(R)$ we get an idempotent $R$-algebra $\O(K)$.
+
+\begin{ex}
+Let $R = \O(\DD^n)$. Then 
+\[
+\O(K) = \varinjlim_{\substack{U\supseteq K\\ \text{open}}} \R\Gamma(U; \O^{\mathrm{hol}}).
+\]
+\end{ex}
+
+\begin{rem}
+In general, $\O(K)$ can live in positive and negative degrees. In practice it lives in degrees $\le 0$.
+
+Moreover, in general, $\set{K}{\O(K) \in D_{\ge0}(\CC^{\mathrm{gas}})}$ is closed under intersections and generates the topology. For any such $K$, we have $\O(K) \in \CAlg(D_{\ge0}(\CC^{\mathrm{gas}}))^{\mathrm{bded}}$ and
+\[
+\begin{tikzcd}
+\cat M_B(\O(K)) \ar[d,leftrightarrow,"\simeq"'] \ar[r] & \cat M_B(R) \\
+K \ar[ur,hook],
+\end{tikzcd}
+\]
+and for $K'\subseteq K$ the idempotent algebras agree. (This is analogous to distinguished opens in algebraic geometry.)
+\end{rem}
+
+\begin{ex}
+If $R =\O(\DD^n)$, then $K \subseteq \DD^n$ satisfies $\O(K) \in D_{\ge0}(\CC^{\mathrm{gas}})$ if and only if $K$ is holomorphic (?) convex (compact Stein).
+\end{ex}
+
+Recall (Lurie), if $X$ is locally compact Hausdorff and $\cat C \in \Pr^L_{\mathrm{st}}$, then
+\[
+\Shv(X;\cat C) \xleftrightarrow{\simeq} \Shv_K(X;\cat C),
+\]
+where the right hand side is the category of presheaves on compact subsets such that 
+\begin{enumerate*}[(1)]
+\item it satisfies the sheaf condition for finite covers and 
+\item $\sheaf F(K) = \varinjlim_{K\Subset K'} \sheaf F(K')$.
+\end{enumerate*}
+
+For $X = \cat M_B(R)$ one has the same if one only restricts to $K$ such that $\O(K) \in D_{\ge0}(\CC^{\mathrm{gas}})$.
+
+\begin{cor}
+\begin{enumerate}[(a)]
+\item We get a structure sheaf $\O \in \Shv(\cat M_B(R); \CAlg(D(\CC^{\mathrm{gas}})))$. (For $R = \O(\DD)$ we get the usual $\O^{\mathrm{hol}}$.)
+
+\item We get a sheaf with values in $\CAlg(\Pr^L)$, given by $K\mapsto D(\O(K))$; this uses idempotency.
+\end{enumerate}
+\end{cor}
+
+\begin{thm}[Automatic quasicoherence]
+The functor
+\begin{align*}
+D(R) &\to \Mod_{\O}(\Shv(\cat M_B(R); D(\CC^{\mathrm{gas}}))), \\
+M &\mapsto \bigl(K\mapsto M\otimes_R\O(K)\bigr)
+\end{align*}
+is an equivalence.
+\end{thm}
+\begin{proof}
+Fully faithfulness is easy. For essential surjectivity it is enough to hit the generators \enquote{$h_U$}, where $U \subseteq \cat M_B(R)$ is open. These are hit by $\fib(R\to \O(X\setminus U))$.
+\end{proof}
+
+We thus get a category $D_{\mathrm{qcoh}}(M)$ for any complex manifold $M$.
+
+\begin{thm}
+Let $R$ be bounded. Then we can define a (derived de\,Rham) complex on $\cat M_B(R)$, which is also a sheaf.
+\end{thm}
+
+\begin{ex}
+If $R = \O(\DD^n)$, then we get back the usual de\,Rham complex.
+
+The key input is that $\CC[T_1,\dotsc, T_n] \injto \O(\DD^n)$ is idempotent.
+\end{ex}
+
+Note that this also allows us to define Deligne cohomology.
+
+\begin{warning}
+The category $D(\CC^{\mathrm{gas}})$ is not rigid.
+\end{warning}
+
+The fix is to pass to a full subcategory which \emph{is} rigid. Recall that, if $\cat C\in \CAlg(\Pr^L)$ is such that $\one$ is compact, then $\cat C$ is rigid if and only if $\cat C$ is generated by \emph{basic nuclear} objects (which is the same as $\omega_1$-compact objects), i.e., objects of the form $\varinjlim (x_0\to x_1\to \dotsb)$, where all transition maps $x_n\to x_{n+1}$ are trace class.\footnote{If $\cat C$ is compactly generated, then $X\in \cat C$ is nuclear if and only if $(\iHom(K,\one)\otimes X)(*)\isoto \Hom(K,X)$ is an isomorphism for all compact $K$.} This is not satisfied for $\cat C = D(\CC^{\mathrm{gas}})$. For example, $P = \CC^{\mathrm{gas}}(\NN\cup\{\infty\}/\infty)$ is compact in $D(\CC^{\mathrm{gas}})$. But it is not basic nuclear, because $\id\colon P\to P$ is not trace class.
+
+In fact, we have $P\subseteq \prod_{\NN} \CC$ consisting of those sequences with \enquote{quasi-exponential decay}. The trace class maps in $D(\CC^{\mathrm{gas}})$ are generated by maps $P\to P$ which are given by a diagonal matrix with quasi-exponential decay.
+
+\begin{defn}
+Let $\cat C \in \CAlg(\Pr^L)$ and assume that $\one$ is compact. Let
+\[
+\Nuc(\cat C) \subseteq \cat C
+\]
+be the full subcategory generated by the basic nuclear objects.
+\end{defn}
+
+\begin{fact}
+$\Nuc(\cat C)$ is closed under $\otimes$, and we have $\one\in \Nuc(\cat C)$.
+\end{fact}
+
+\begin{question}
+Is $\Nuc(\cat C)$ always rigid?
+\end{question}
+
+In general, the answer is \emph{no}! But the answer is yes if every trace class map factors as the composite of two trace class maps. This holds for $D(\CC^{\mathrm{gas}})$, i.e., $\Nuc(\CC^{\mathrm{gas}})$ is rigid.
+
+\begin{thm}
+\begin{enumerate}[(a)]
+\item $\Nuc(\CC^{\mathrm{gas}}) = \Nuc(\langle P\rangle)$.
+\item Let $R\in \CAlg(D(\CC^{\mathrm{gas}}))$ such that $R\in \Nuc(\CC^{\mathrm{gas}})$, then
+\[
+\Nuc(\Mod_R(D(\CC^{\mathrm{gas}}))) = \Mod_R(\Nuc(\CC^{\mathrm{gas}})).
+\]
+
+\item $\O^{\mathrm{hol}}(\DD^n) \in \Nuc(\CC^{\mathrm{gas}})$.
+\item $\Nuc(\CC^{\mathrm{gas}}) \subseteq D(\CC^{\mathrm{gas}})$ is closed under countable limits.
+\end{enumerate}
+\end{thm}
+
+Hence, for a complex manifold $M$, we can define 
+\[
+D_{\mathrm{qcoh}}(M) \supseteq \Nuc(M)
+\]
+such that $\sheaf F$ is nuclear if and only if $\sheaf F(K)$ is a nuclear $\O(K)$-module for all compact $K$ or, equivalently, $\sheaf F(K)$ is nuclear over $\CC^{\mathrm{gas}}$.
+
 
 
 \end{document}
