@@ -21,6 +21,7 @@
 \newcommand{\RR}{\mathbb{R}}
 \newcommand{\CC}{\mathbb{C}}
 \newcommand{\FF}{\mathbb{F}}
+\newcommand{\EE}{\mathbb{E}}
 \renewcommand{\AA}{\mathbb{A}}
 \renewcommand{\SS}{\mathbb{S}}
 \newcommand{\GG}{\mathbb{G}}
@@ -41,8 +42,6 @@
 
 \renewcommand{\setminus}{\smallsetminus}
 \renewcommand{\emptyset}{\varnothing}
-\newcommand{\ssubset}{\Subset} 
-\newcommand{\ssupset}{\Supset} 
 \newcommand{\op}{\mathrm{op}}
 
 \newcommand{\from}{\leftarrow}
@@ -58,12 +57,15 @@
 \newcommand{\Stab}{\mathrm{Stab}}
 
 \newcommand{\blank}{-} % todo
+\newcommand{\one}{\mathbf{1}}
 
 \DeclareMathOperator{\Spec}{Spec}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\fib}{fib}
 \DeclareMathOperator{\Anima}{Ani}
+\DeclareMathOperator{\iHom}{\ul{Hom}}
 \DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\coShv}{coShv}
 \DeclareMathOperator{\Spa}{Spa}
 \DeclareMathOperator{\dlog}{dlog}
 \DeclareMathOperator{\SingularSupport}{SS}
@@ -88,12 +90,18 @@
 \DeclareMathOperator{\Tate}{Tate}
 \DeclareMathOperator{\Ext}{Ext}
 \DeclareMathOperator{\Vect}{Vect}
+\DeclareMathOperator{\Supp}{Supp}
 \DeclareMathOperator{\Spv}{Spv}
 \DeclareMathOperator{\Calk}{Calk}
+\DeclareMathOperator{\BiMod}{BiMod}
+\DeclareMathOperator{\Rep}{Rep}
 \DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\res}{res}
 \DeclareMathOperator{\Ker}{Ker}
 \DeclareMathOperator{\QCoh}{QCoh}
 \DeclareMathOperator{\Cone}{Cone}
+\DeclareMathOperator{\coev}{coev}
+\DeclareMathOperator{\Mot}{Mot}
 \DeclareMathOperator{\GL}{GL}
 \DeclareMathOperator*{\indinjlim}{\text{``}\varinjlim\text{''}} % todo
 \DeclareMathOperator*{\indprojlim}{\text{``}\varprojlim\text{''}} % todo
@@ -108,7 +116,9 @@
 \newtheorem{defn}[thm]{Definition}
 \newtheorem{rem}[thm]{Remark}
 \newtheorem{applications}[thm]{Applications}
+\newtheorem{question}[thm]{Question}
 \newtheorem{fact}[thm]{Fact}
+\newtheorem{crucialfact}[thm]{Crucial Fact}
 \newtheorem{ex}[thm]{Example}
 \newtheorem{exercise}[thm]{Exercise}
 \newtheorem{warning}[thm]{Warning}
@@ -150,7 +160,7 @@ Let $\cat C$ be an accessible $\infty$-category with filtered colimits. Then $\c
 \item $\Ind(\cat A)$ is compactly assembled.
 \item $(\RR\cup \{+\infty\}, \le)$ is compactly assembled with $\wh{Y}(a) = \indinjlim_{b<a}b$.
 
-\item Let $X$ be a locally compact Hausdorff space. Then $\Open(X)$ is compactly assembled with $\wh{Y}(U) = \indinjlim_{V\ssubset U} V$. Also, $\cat K(X)^{\op}$ is compactly assembled with $\wh{Y}(Z) = \indinjlim_{Z'\ssupset Z} Z'$.
+\item Let $X$ be a locally compact Hausdorff space. Then $\Open(X)$ is compactly assembled with $\wh{Y}(U) = \indinjlim_{V\Subset U} V$. Also, $\cat K(X)^{\op}$ is compactly assembled with $\wh{Y}(Z) = \indinjlim_{Z'\Supset Z} Z'$.
 
 \item \textbf{Exercise:} Let $\Seminorm_1$ be the category of $\RR$-vector spaces with a seminorm $\lVert\cdot\rVert$ and contractible maps (i.e., $\lVert f(x)\rVert \le \lVert x\rVert$). If $\dim V < \infty$ and $(V,\lVert\cdot\rVert)$ is normed, then
 \[
@@ -742,6 +752,215 @@ Then the left vertical map is a localization, $\cat A = \cat B\times_{\cat D}^{\
 F^{\mathrm{cont}}(\cat A) = F^{\mathrm{cont}}(\cat B)\times_{F^{\mathrm{cont}}(\cat D)} F^{\mathrm{cont}}(\cat C).
 \]
 \end{lem}
+
+\section{Talk 4} 
+Let $X$ be a locally compact Hausdorff space and let $\ul{\cat C}$ be a presheaf with values in $\Cat^{\mathrm{dual}}_{\mathrm{st}}$ such that $\ul{\cat C}(\emptyset) = 0$.
+
+\begin{thm}
+We have
+\[
+{\cat U}^{\mathrm{cont}}_{\mathrm{loc}}(\Shv(X; \ul{\cat C})) = \Gamma_c(X; ({\cat U}_{\mathrm{loc}}(\ul{\cat C}))^{\sharp}),
+\]
+where $\cat U_{\mathrm{loc}}$ is the universal localizing invariant.
+The same holds for K-theory.
+\end{thm}
+
+Let $\sheaf F \in \Shv(X;\ul{\cat C})$. Recall the restriction map $\res_{U,V}\colon \ul{\cat C}(U) \to \ul{\cat C}(V)$ for $V\subseteq U$. Being a sheaf requires that
+\begin{enumerate}[(1)]
+\item $\sheaf F(\emptyset) = 0$.
+\item For open subsets $U, V \subseteq X$ there is a pullback
+\[
+\begin{tikzcd}
+\sheaf F(U\cup V) \ar[d] \ar[r] & \res^R_{U\cup V,U}\sheaf F(U) \ar[d] \\
+\res^R_{U\cup V,V}\sheaf F(V) \ar[r] & \res^R_{U\cup V,U\cap V} \sheaf F(U\cap V)
+\end{tikzcd}
+\]
+in $\ul{\cat C}(U\cup V)$.
+
+\item\label{Efimov:sheaf-3} $\sheaf F(U) = \varprojlim_{V\Subset U} \res^R_{U,V}\sheaf F(V)$.
+\end{enumerate}
+
+\begin{prop}
+Let $\sheaf F\in \Shv(X;\ul{\cat C})$. The following are equivalent:
+\begin{enumerate}[(i)]
+\item $\sheaf F$ is compact.
+\item $\Supp(\sheaf F)$ is compact and $\sheaf F$ can be covered by $U$ such that $\sheaf F\big|_{U} \simeq P_U$, where $P\in \ul{\cat C}(U)^{\omega}$.
+\end{enumerate}
+\end{prop}
+\begin{proof}
+The implication (ii)$\implies$(i) is an easy exercise.\medskip
+
+Let us prove (i)$\implies$(ii):
+
+\textbf{Step 1:} Suppose that $\sheaf F_x = 0$ in $\ul{\cat C}_x$. Then there exists $U\ni x$ such that $\sheaf F\big|_U = 0$. Indeed, we have 
+\[
+\sheaf F = \varinjlim_{V\Subset X\setminus\{x\}} j_{V!}j_V^* \sheaf F.
+\]
+Hence, $\sheaf F$ is a summand of some $j_{V!} j_V^*\sheaf F$ and thus $\sheaf F\big|_{X\setminus \ol V} = 0$.
+
+\textit{Exercise:} $(\blank)^\omega\colon \Cat^{\mathrm{dual}}_{\mathrm{st}} \to \Cat^{\mathrm{perf}}$ commutes with filtered colimits.
+
+\textbf{Step 2:} Suppose $\sheaf F_x \neq 0$. Then $\sheaf F_x \in \ul{\cat C}_x^{\omega}$. It follows that there exists $U\ni x$ such that $\sheaf F_x$ lifts to $P\in \ul{\cat C}(U)^\omega$. Shrinking $U$ if necessary, we get a map $\varphi \colon P_U \to \sheaf F$. Then, choosing $x\in V\Subset U$, we get $\Cone(\varphi)\big|_{\ol V} \in \Shv(\ol V; \ul{\cat C}\big|_V)^\omega$. Hence, $\Cone(\varphi)\big|_W = 0$ for some $W\ni x$.
+
+\textbf{Step 3:} $\sheaf F = \varinjlim_{U\Subset X} j_{U!} j_U^*\sheaf F$ implies that $\Supp(\sheaf F)$ is compact.
+
+\begin{rem}
+Some proofs use the following fact: There exists a conservative continuous functor $\mathrm{Mot}^{\mathrm{loc}} \to \Sp$. This follows from rigidity (hence dualizability) of $\Mot^{\mathrm{loc}}$.
+\end{rem}
+
+Note that
+\[
+\begin{tikzcd}
+\Shv(X; \ul{\cat C}) \ar[r,phantom,"\subset"] \ar[d] & \PSh^{\mathrm{cont}}(X; \ul{\cat C}) \ar[d,"\simeq"] \\
+\Shv_{\sheaf K}(X; \ul{\cat C}) \ar[r,phantom, "\subset"] & \PSh^{\mathrm{cont}}_{\sheaf K}(X; \ul{\cat C}),
+\end{tikzcd}
+\]
+where $\PSh^{\mathrm{cont}}$ denotes those presheaves which satisfy \ref{Efimov:sheaf-3}, and $\PSh^{\mathrm{cont}}_{\sheaf K}$ denotes those presheaves defined on compact subsets such that $\sheaf F(Y) = \varinjlim_{Z\Supset Y} \res_{Z,Y}\sheaf F(Z)$. 
+
+Note that for compact $Y\subseteq X$ we have $\ul{\cat C}(Y) = \varinjlim_{U\supset Y} \ul{\cat C}(U)$.
+
+\textit{Exercise:} We have that 
+\[
+\sheaf U_{\mathrm{loc}}(\PSh^{\mathrm{cont}}_{\sheaf K}(X;\ul{\cat C}))
+= \bigoplus_{\substack{V\subseteq X\\ \text{open, compact}}} \sheaf U_{\mathrm{loc}}(\ul{\cat C}(V)).
+\]
+Hint: use the semiorthogonal decomposition $\PSh_{\sheaf K}(X;\ul{\cat C}) = \langle \ul{\cat C}(Y), Y\subset X \text{ compact}\rangle$ and
+\[
+\PSh_{\sheaf K}(X;\ul{\cat C})/\PSh_{\sheaf K}^{\mathrm{cont}}(X;\ul{\cat C}) = \langle \ul{\cat C}(Y), \text{$Y\subset X$ compact but not open}\rangle
+\]
+
+
+Assuming that $X$ is compact, we have $\Shv(X;\ul{\cat C}) \simeq \Shv(X\cup\{\infty\}; j_!\ul{\cat C})$.
+
+\textbf{Step 4:} Approximate $\Shv_{\sheaf K}(X;\ul{\cat C})$ by finite limits of $\PSh_{\sheaf K}(Y;\ul{\cat C})$. If $X = Y_1 \sqcup \dotsb \sqcup Y_n$, denoting $Y_I = \bigcap_{i\in I}Y_i$ for $I\neq \emptyset$, then we have the approximation
+\[
+\varprojlim_{I\neq \emptyset} \PSh^{\mathrm{cont}}_{\sheaf K}(Y_I, \ul{\cat C}\big|_{Y_I}).
+\]
+\enquote{Categorify \v{C}ech cohomology}
+\end{proof}
+
+\subsection{The internal Hom in \texorpdfstring{$\Cat^{\mathrm{dual}}_{\mathrm{st}}$}{Cat perf dual}}
+
+\begin{thm}
+Let $\cat C$ be a rigid symmetric monoidal category (in particular, $\cat C$ is dualizable). Let $\cat A$ and $\cat B$ be dualizable categories over $\cat C$. 
+
+\begin{enumerate}[(1)]
+\item Suppose that $\cat A$ is proper and $\omega_1$-compact. 
+
+Then for all uncountable regular cardinals $\kappa$, we have
+\[
+\sheaf U_{\mathrm{loc}}^{\mathrm{cont}}(\iHom^{\mathrm{dual}}(\cat A, \cat B)) \simeq \iHom(\sheaf U_{\mathrm{loc}, \kappa}(\cat A), \sheaf U_{\mathrm{loc},\kappa} (\cat B))
+\]
+in $\Mot_{\cat C, \kappa}^{\mathrm{loc}}$.
+
+\item If additionally $\cat C$ is compactly generated, then
+\[
+\sheaf U_{\mathrm{loc}}^{\mathrm{cont}} \bigl(\iHom_{\cat C}^{\mathrm{dual}} (\cat A, \cat B)\bigr) \simeq \iHom\bigl(\sheaf U_{\mathrm{loc}}(\cat A), \sheaf U_{\mathrm{loc}}(\cat B)\bigr)
+\]
+in $\Mot_{\cat C}^{\mathrm{loc}}$.
+\end{enumerate}
+\end{thm}
+
+\begin{defn}
+Recall that $\cat A$ is \emph{proper} if the evaluation functor $\cat A\otimes_{\cat C} \cat A^\vee \to \cat C$ is strongly continuous.
+
+We say that $\cat A$ is \emph{$\omega_1$-compact} if $\coev(\one) \in (\cat A\otimes_{\cat C}\cat A^\vee)^{\omega_1}$.
+\end{defn}
+
+\begin{cor}
+Let $R$ be a noetherian commutative ring and $I\subseteq R$ an ideal. Then
+\[
+K^{\mathrm{cont}}(\wh{\Nuc}(R_{\wh{I}}))\simeq \varprojlim_n K(R/I^{n}).
+\]
+\end{cor}
+
+\begin{cor}
+If $X$ is a ${\mathcal C}^0$-manifold and countable at $\infty$, then
+\[
+K^{\mathrm{cont}}(\wh{\coShv}(X;\cat C)) \simeq \H^{\mathrm{BM}}(X; K^{\mathrm{cont}}(\cat C)).
+\]
+\end{cor}
+
+Suppose that $\cat C = \Mod(k)$, where $k$ is an $\EE_\infty$-ring. Let $R, S$ be $\EE_1$-algebras over $k$. Suppose that $\cat A = \Mod(R)$ and $\cat B = \Mod(S)$.
+
+Then $\cat A$ is proper if and only if $R \in \Perf(k)$.
+
+\begin{question}
+What is $\iHom^{\mathrm{dual}}_k(\Mod(R), \Mod(S))$?
+\end{question}
+
+We use the adjunction
+\[
+\begin{tikzcd}[row sep=0em]
+\Cat^{\mathrm{dual}}_k \ar[r,shift left,"\text{incl}"] & \ar[l,shift left] \Pr^L_{k,\omega_1}, \\
+\Ind(\cat E^{\omega_1}) & \ar[l,mapsto] \cat E.
+\end{tikzcd}
+\]
+
+\begin{cor}
+We have 
+\[
+\iHom_k^{\mathrm{dual}}(\Mod(R), \Mod(S)) = \Ker^{\mathrm{dual}}\bigl( \Ind(\BiMod(R,S)^{\omega_1}) \to \Ind(\Rep(R, \Calk_{\omega_1}(S)))\bigr),
+\]
+noting that $\BiMod(R,S) = \Rep(R, \Mod(S)^{\omega_1})$.
+\end{cor}
+
+\begin{crucialfact}
+The functor
+\[
+\Rep_k(R, \Mod(S)^{\omega_1}) \to \Rep_k(R, \Calk_{\omega_1}(S))
+\]
+is a homological epi.
+\end{crucialfact}
+
+Recall: to show that a functor $\cat D\to \cat E$ in $\Cat^{\mathrm{perf}}$ is a homological epi, we need that for all $x,y\in \cat E$ it holds that
+\[
+\Hom_{\cat E}(F(\blank), y) \otimes_{\cat D} \Hom_{\cat E}(x, F(\blank)) \isoto \Hom_{\cat E}(x,y).
+\]
+The left hand side is considered as an object of $\Ind(\cat D) \otimes_k \Ind(\cat D^\op) \xrightarrow{\mathrm{ev}} \Mod(k)$.
+
+\begin{fact}\label{Efimov:fact}
+\begin{enumerate}[(1)]
+\item Suppose that $\cat D$ is a compactly assembled presentable category (or least assume that strong (AB5) and (AB6) for countable products hold). Let $I$ be a directed poset and $F\colon \NN^\op \times I \to \cat D$ be a functor.
+
+Then 
+\[
+\varinjlim_{\varphi\colon \NN\to I} \varprojlim_{n\le m} F(n, \varphi(m)) \isoto  \varprojlim_n \varinjlim_i F(n,i),
+\]
+where $(n\le m) \in \NN^{\op}\times \NN$.
+
+\item Let $\cat D$ be as above, and let $I, J$ be directed posets. Let $F\colon \NN^\op \times \NN^\op \times I\times J \to \cat D$. Assume that the following conditions are satisfied:
+\begin{enumerate}[(i)]
+\item $\varprojlim_n \varinjlim_i \varprojlim_k \varinjlim_j F(n,k,i,j) \isoto \varprojlim_n \varprojlim_k \varinjlim_i \varinjlim_j F(n,k,i,j)$.
+
+\item Same with $n\leftrightarrow k$ and $i\leftrightarrow j$.
+\end{enumerate}
+Then we have that
+\[
+\varinjlim_{\varphi\colon \NN\to I} \varinjlim_{\psi\colon \NN\to J} \varprojlim_{n\le m} \varprojlim_{k\le l} F(n,k,\varphi(m), \psi(l)) \isoto
+\varprojlim_n \varinjlim_i \varinjlim_j F(n,n,i,j)
+\]
+\end{enumerate}
+\end{fact}
+
+\begin{exercise}
+\begin{enumerate}[(a)]
+\item Prove a version of \cref{Efimov:fact}.(1), where $\NN^\op \times I$ is replaced with a cocartesian fibration $\cat E \to \NN^\op$, with directed fibers and cofinal transition maps.
+
+\item Let $I, J, \cat D$ and $F$ be as in \cref{Efimov:fact}.(2), but witout assumptions (i) and (ii). Then we have
+\[
+\varinjlim_{\varphi\colon \NN\to I} \varinjlim_{\psi\colon \NN\to J} \varprojlim_{n\le m\le k\le l} F(n,k, \varphi(m), \psi(l))
+\isoto
+\varprojlim_n \varinjlim_i \varprojlim_k \varinjlim_j F(n,k,i,j),
+\]
+where $(n,m,k,l) \in \NN^\op \times \NN \times \NN^\op \times \NN$.
+\end{enumerate}
+\end{exercise}
+
+
+
+
+
 
 
 \end{document}

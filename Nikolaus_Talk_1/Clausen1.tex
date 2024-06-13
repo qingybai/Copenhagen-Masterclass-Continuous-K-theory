@@ -5,7 +5,7 @@
 \usepackage{mathtools}
 \usepackage{tikz-cd}
 \usepackage{stmaryrd} % \mapsfrom
-\usepackage[shortlabels]{enumitem}
+\usepackage[inline,shortlabels]{enumitem}
 \usepackage{geometry}
 \usepackage[final,kerning,spacing]{microtype}\frenchspacing
 \usepackage{csquotes}
@@ -18,6 +18,7 @@
 \newcommand{\NN}{\mathbb{N}}
 \newcommand{\ZZ}{\mathbb{Z}}
 \newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\DD}{\mathbb{D}}
 \newcommand{\RR}{\mathbb{R}}
 \newcommand{\CC}{\mathbb{C}}
 \newcommand{\FF}{\mathbb{F}}
@@ -28,6 +29,7 @@
 \renewcommand{\H}{\mathrm{H}}
 \newcommand{\D}{\mathrm{D}}
 \newcommand{\R}{\mathrm{R}}
+\renewcommand{\L}{\mathrm{L}}
 \renewcommand{\O}{\mathcal{O}}
 
 \newcommand{\set}[2]{\left\{#1\,\middle|\,#2\right\}}
@@ -60,12 +62,18 @@
 \DeclareMathOperator{\Spec}{Spec}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\fib}{fib}
+\DeclareMathOperator{\CAlg}{CAlg}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Null}{Null}
+\DeclareMathOperator{\CondAb}{CondAb}
 \DeclareMathOperator{\End}{End}
 \DeclareMathOperator{\Spa}{Spa}
+\DeclareMathOperator{\iHom}{\ul{Hom}}
 \DeclareMathOperator{\dlog}{dlog}
 \DeclareMathOperator{\SingularSupport}{SS}
 \DeclareMathOperator{\Ind}{Ind}
 \DeclareMathOperator{\Map}{Map}
+\DeclareMathOperator{\ev}{ev}
 \DeclareMathOperator{\Open}{Open}
 \DeclareMathOperator{\Seminorm}{Seminorm}
 \DeclareMathOperator{\Shv}{Shv}
@@ -83,6 +91,7 @@
 \DeclareMathOperator{\Pro}{Pro}
 \DeclareMathOperator{\Image}{Im}
 \DeclareMathOperator{\Tate}{Tate}
+\DeclareMathOperator{\Fin}{Fin}
 \DeclareMathOperator{\Ext}{Ext}
 \DeclareMathOperator{\Vect}{Vect}
 \DeclareMathOperator{\Spv}{Spv}
@@ -115,7 +124,7 @@
 \tableofcontents
 
 
-\section{Talk 1}
+\section{Talk 1: Deligne cohomology}
 
 Deligne cohomology is a cohomology theory for complex manifolds which refines the usual singular/sheaf cohomology $\H^*(M;\ZZ)$ by including some differential form data.
 
@@ -256,12 +265,199 @@ We want to modify $K_0(\Vect(M))$ using continuous K-theory to get a theory wher
 \item A third goal is to make Riemann--Roch more transparent.
 \end{enumerate}
 
+\section{Talk 2: Complex manifolds from a new perspective (joint with P. Scholze)}
 
+Let $M$ be a complex manifold. The Deligne cohomology of $M$ was defined as a complex $\ZZ(p)_{\D}$ of sheaves, for any $p\in\ZZ$, given by the pullback
+\[
+\begin{tikzcd}
+\ZZ(p)_{\D} \ar[d] \ar[dr,phantom, very near start, "\lrcorner"] \ar[r] & (2\pi i)^p\ZZ \ar[d] \\
+F^p\Omega_{\mathrm{dR}} \ar[r] & \Omega_{\mathrm{dR}}.
+\end{tikzcd}
+\]
 
+\textbf{Main goal:} \enquote{Fix} the fact that
+\[
+K_0(\Vect(M)) \to \bigoplus_p \H^{2p}(M; \ZZ(p)_\D)
+\]
+is far from being an isomorphism by replacing $K(\Vect(M))$ with $K^{\mathrm{cont}}(\Nuc(M))$. Here, $\Nuc(M)$ is some version of $D_{\mathrm{qc}}(M)$.
+
+\textbf{Idea:} make it more like scheme theory: Start with a class of rings, $R$, which will determine everything: there is 
+\begin{itemize}
+\item an underlying topological space,
+\item a structure sheaf of holomorphic functions,
+\item a de\,Rham complex,
+\item \ldots.
+\end{itemize}
+
+The basic example of an $R$ will be
+\[
+\O^{\mathrm{hol}}(\DD) = \set{\sum_n c_n T^n}{\text{$\exists r>1$ such that $\sum_n \lvert c_n\rvert r^n \to \infty$}},
+\]
+where $\DD \subseteq \CC$ is the \emph{closed} unit disk and $\O^{\mathrm{hol}}$ denotes the functions which are holomorphic in a neighborhood of $\DD$.
+
+\textbf{Good news!} The abstract algebra $\O^{\mathrm{hol}}(\DD)$ determines $\DD$. More precisely, there are mutually inverse maps
+\[
+\begin{tikzcd}[column sep=5em]
+\DD \ar[r,bend right,"x\mapsto \ev_x"'] & \Hom_{\CC}(\O^{\mathrm{hol}}(\DD), \CC) \ar[l,bend right, "\varphi(T) \mapsfrom \varphi"'] 
+\end{tikzcd}
+\]
+\begin{proof}
+We need: 
+\begin{enumerate}[(i)]
+\item $\varphi(T) \in \DD$. Suppose $\lambda\in \CC\setminus \DD$. Then $\frac1{T-\lambda} \in \O^{\mathrm{hol}}(\DD)$, that is, $T-\lambda$ is a unit, hence so is $\varphi(T-\lambda) = \varphi(T) - \varphi(\lambda) \neq 0$, which is a contradiction.
+
+\item $\varphi$ is determined by $\varphi(T)$. This follows from the claim that
+\[
+\lim_{N\to \infty} \varphi\Bigl( \sum_{n\le N} c_n T^n\Bigr) = \varphi\Bigl(\sum_n c_n T^n\Bigr).
+\]
+The same argument as above shows that $\varphi(\sum_{n>N} c_nT^n) \in \varepsilon \DD$ for $N$ such that $\sum_{n>N} \lvert c_n\rvert <\varepsilon$.
+\end{enumerate}
+\end{proof}
+
+\begin{defn}
+Let $R$ be a $\CC$-algebra. Define
+\[
+\cat M_B(R) = \Hom_{\CC}(R, \CC) \subseteq \prod_{f\in R} \CC
+\]
+with the product topology.\footnote{The subscript \enquote{B} stands for Betti or Berkovich.}
+\end{defn}
+
+\begin{claim}
+Both maps above are continuous.
+\end{claim}
+The proof of the claim is (more or less) obvious. We now have that
+\[
+\DD = \cat M_{B}(\O^{\mathrm{hol}}(\DD)).
+\]
+
+\textbf{Bad news:} We cannot get a structure sheaf, de\,Rham cohomology etc. just from the abstract $\CC$-algebra structure on $\O^{\mathrm{hol}}(\DD)$.
+The most basic reason is that
+\[
+\O^{\mathrm{hol}}(\DD) \otimes_{\CC} \O^{\mathrm{hol}}(\DD) \neq \O^{\mathrm{hol}}(\DD^2),
+\]
+where $\otimes_{\CC}$ is the abstract tensor product.
+
+\textbf{Solution:} remember the topological vector space structure on $\O^{\mathrm{hol}}(\DD)$ and use the \emph{completed} tensor product $\otimes_{\CC}$. Or rather, use a category-friendly version thereof.
+
+Concretely, this means that \enquote{topological} vector spaces are replaced with \enquote{light condensed} $\CC$-vector spaces; then completeness corresponds to \enquote{gaseous}.
+
+\begin{defn}
+A \emph{light condensed abelian group} is a presheaf of abelian groups on $\Pro(\Fin)^{\mathrm{light}}$, the category of countable inverse limits of finite sets, satisfying descent with respect to 
+\begin{enumerate*}[(1)]
+\item finite coproducts and
+\item surjections $S\epito T$.
+\end{enumerate*}
+
+\textit{Exercise:} We have that $\NN\cup\{\infty\}$ lies in $\Pro(\Fin)^{\mathrm{light}}$.
+\end{defn}
+
+\begin{ex}
+For $\CC$, there is a light condensed ring given by $S\mapsto \cat C^0(S,\CC)$, where $\cat C^0(S,\CC)$ denotes set of continuous functions from $S$ to $\CC$.
+\end{ex}
+
+We can now consider the symmetric monoidal category
+\[
+\bigl(\Mod_{\CC}(\CondAb^{\mathrm{light}}), \otimes_{\CC}).
+\]
+We need to pass to a full subcategory of \enquote{complete} objects.
+
+\textbf{Idea:} Completeness of $M$ corresponds to the following property: if $m_0, m_1, m_2, \dotsc$ is a null sequence in $M$, then we can form $\sum_n m_n \cdot (1/2)^n \in M$.
+
+Here, a \emph{null sequence} is a map from $\ZZ[\NN\cup \{\infty\}]/\ZZ\infty$, the free condensed abelian group on a null sequence.
+
+\begin{defn}
+A module $M\in \Mod_{\CC}(\CondAb^{\mathrm{light}})$ is called \emph{gaseous} if the map
+\[
+\Null(M)\coloneqq \iHom(\ZZ[\NN\cup\{\infty\}]/\ZZ\infty, M) \xrightarrow[\simeq]{1-T\cdot \frac12} \iHom(\ZZ[\NN\cup\{\infty\}]/\ZZ\infty, M),
+\]
+where $T$ is induced by the shift map $\NN\to \NN$, $n\mapsto n+1$.
+\end{defn}
+
+\begin{rem}
+The condition for $\frac12$ is equivalent to the condition for any $\lambda$ with $0< \lvert\lambda\rvert < 1$.
+\end{rem}
+
+\begin{thm}
+We have that $\Mod_{\CC^{\mathrm{gas}}} \subseteq \Mod_{\CC}(\CondAb^{\mathrm{light}})$ is an abelian subcategory closed under all colimits, limits, all $\R^i\varprojlim$, $\L^i\varinjlim$ and $\R^i\iHom(X,\blank)$, for all $X\in \Mod_{\CC}(\CondAb^{\mathrm{light}})$.
+\end{thm}
+\begin{proof}
+Everything follows from the (interesting) fact that $\ZZ[\NN\cup\{\infty\}]/\ZZ\infty$ is \emph{(internally) projective} in $\Mod_{\CC}(\CondAb^{\mathrm{light}})$.
+\end{proof}
+
+\textbf{Upshot:} 
+\begin{enumerate}[(i)]
+\item There exists a left adjoint 
+\[
+(\blank)^{\mathrm{gas}}\colon \Mod_{\CC}(\CondAb^{\mathrm{light}}) \to \Mod_{\CC^{\mathrm{gas}}}
+\]
+to the inclusion,
+\item There exists a symmetric monoidal structure on $\Mod_{\CC^{\mathrm{gas}}}$ making $(\blank)^{\mathrm{gas}}$ symmetric monoidal.
+
+\item There is a derived analog of everything.
+\end{enumerate}
+
+\begin{ex}
+Any Banach space over $\CC$ is gaseous. In particular, $\O^{\mathrm{hol}}(\DD)$ is gaseous (it is a filtered union of $\ell^1$-spaces).
+\end{ex}
+
+\begin{thm}
+The ring $\O^{\mathrm{hol}}(\DD)$ is flat with respect to $\blank\otimes_{\CC^{\mathrm{gas}}}\blank$ and
+\[
+\O^{\mathrm{hol}}(\DD) \otimes_{\CC^{\mathrm{gas}}} M = \varinjlim \Null(M).
+\]
+\end{thm}
+\begin{proof}
+Use trace class map tricks.
+\end{proof}
+
+The rings $R$ that we consider are objects of $\CAlg(D_{\ge0}(\CC^{\mathrm{gas}}))$, which we call \emph{gaseous $\CC$-algebras}.
+
+\begin{defn}
+Let $R$ be a gaseous $\CC$-algebra.
+\begin{enumerate}[(a)]
+\item An element $f\in \pi_0R(*)$ is called \emph{topologically nilpotent} if there is a factorization
+\[
+\begin{tikzcd}
+\CC[T] \ar[d] \ar[r,"T\mapsto f"] & R \\
+\CC[\NN\cup\{\infty\}/\infty] \ar[ur,dashed,"\exists"']
+\end{tikzcd}
+\]
+of condensed rings.
+
+\item $R$ is called \emph{pointwise bounded} if for all $f\in R$ (meaning: $f\in \pi_0R(*)$), there exists $\lambda\in \CC$ with $0<\lvert \lambda\rvert <1$ such that $\lambda f$ is topologically nilpotent.
+\end{enumerate}
+\end{defn}
+
+\begin{defn}[Rodriguez-Camargo]
+Let $S\in \Pro(\Fin)^{\mathrm{light}}$. Then $f\in R(S)$ is \emph{uniformly topologically nilpotent} if there exists a factorization
+\[
+\begin{tikzcd}
+\CC\Bigl[\bigsqcup_d \Sym^dS\Bigr] \ar[d] \ar[r,"f"] & R \\
+\CC\Bigl[\Bigl(\bigsqcup_d \Sym^dS\Bigr)\cup\{\infty\}/\infty\Bigr] \ar[ur,dashed, "\exists"'].
+\end{tikzcd}
+\]
+
+$R$ is called \emph{bounded} if for all $S$ and all $f\in R(S)$, there exists $\lambda\in \CC$ with $0 <\lvert \lambda\rvert < 1$ such that $\lambda f$ is uniformly topologically nilpotent.
+\end{defn}
+
+\begin{thm}[Rodriguez-Camargo]
+$\CAlg(D_{\ge0}(\CC^{\mathrm{gas}}))^{\mathrm{bded}} \subseteq \CAlg(D_{\ge0}(\CC^{\mathrm{gas}}))$ is closed under all colimits and finite limits.
+\end{thm}
+
+\begin{ex}
+Any Banach algebra $R$ over $\CC$ is bounded. In particular, $\O^{\mathrm{hol}}(\DD)$ is bounded.
+\end{ex}
+
+\begin{thm}
+If $R$ is pointwise bounded, then $\cat M_B(R(*))$ is compact Hausdorff and
+\[
+D(R) \coloneqq \Mod_R(D(\CC^{\mathrm{gas}}))
+\]
+localizes along $\cat M_B(R(*))$ (the abstract $\CC$-algebra underlying $\cat M_B(R)$).
+\end{thm}
 
 
 \end{document}
-
 
 
 

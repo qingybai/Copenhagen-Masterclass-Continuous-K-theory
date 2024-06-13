@@ -47,6 +47,7 @@
 \newcommand{\ssubset}{\Subset} 
 \newcommand{\ssupset}{\Supset} 
 \newcommand{\op}{\mathrm{op}}
+\newcommand{\noloc}{:\!}
 
 \newcommand{\too}{\longrightarrow}
 \newcommand{\xto}[1]{\mathbin{\xrightarrow{#1}}}
@@ -59,13 +60,18 @@
 \renewcommand{\Pr}{\mathrm{Pr}}
 \newcommand{\Stab}{\mathrm{Stab}}
 
+\newcommand{\one}{\mathbf{1}}
 \newcommand{\blank}{-} % todo
 
 \DeclareMathOperator{\Spec}{Spec}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Anima}{Ani}
+\DeclareMathOperator{\LCHaus}{LCHaus}
 \DeclareMathOperator{\fib}{fib}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\coShv}{coShv}
 \DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\CAlg}{CAlg}
 \DeclareMathOperator{\Spa}{Spa}
 \DeclareMathOperator{\dlog}{dlog}
 \DeclareMathOperator{\SingularSupport}{SS}
@@ -84,6 +90,7 @@
 \DeclareMathOperator{\Perf}{Perf}
 \DeclareMathOperator{\CompHaus}{CompHaus}
 \DeclareMathOperator{\Spf}{Spf}
+\DeclareMathOperator{\iHom}{\ul{Hom}}
 \DeclareMathOperator{\PSh}{PSh}
 \DeclareMathOperator{\Corr}{Corr}
 \DeclareMathOperator{\Pro}{Pro}
@@ -111,6 +118,7 @@
 \newtheorem{fact}[thm]{Fact}
 \newtheorem{ex}[thm]{Example}
 \newtheorem{exercise}[thm]{Exercise}
+\newtheorem{corrections}[thm]{Corrections}
 \newtheorem{warning}[thm]{Warning}
 \newtheorem*{claim}{Claim}
 \newtheorem*{notation}{Notation}
@@ -298,6 +306,189 @@ K^{\mathrm{cont}}(\cat C) = \fib\bigl(K(\cat C^{\omega_1}) \to K(\Calk^{\mathrm{
 \]
 \end{defn}
 
+
+\section{Talk 2: Verdier duality and 6 functors}
+\subsection{Recap}
+Let $\cat C$ be a dualizable category. Recall that we have a resolution
+\[
+\cat C \to \Ind(\cat C^{\omega_1}) \to \Ind\Calk^{\mathrm{cont}}(\cat C).
+\]
+The category $\Pr^L_{\mathrm{dual}}$ of dualizable categories with strongly continuous functors is itself a presentable category (due to Ramzi), and the forgetful functor $\Pr^L_{\mathrm{dual}} \to \Pr^L$ preserves colimits. 
+
+\begin{exercise}
+To compute colimits in $\Pr^L$, use $\Pr^L \simeq (\Pr^R)^{\op}$ and use that $\Pr^R \to \Cat$ commutes with limits. Use this to prove that $\Pr^L_{\mathrm{dual}} \to \Pr^L$ commutes with colimits.
+\end{exercise}
+
+\begin{defn}
+Let $\cat C$ be a dualizable category. We define the \emph{continuous K-theory} as
+\[
+K^{\mathrm{cont}}(\cat C)\coloneqq \fib\bigl(K(\cat C^{\omega_1}) \to K(\Calk^{\mathrm{cont}}(\cat C))\bigr) \simeq \Omega K(\Calk^{\mathrm{cont}}(\cat C)).
+\]
+\end{defn}
+
+\begin{rem}
+In increasing generality, K-theory has been defined in the following setups:
+\begin{enumerate}[(i)]
+\item for rings $R$;
+\item for additive categories (e.g., $\mathrm{Proj}_R$);
+\item for (small) stable categories (e.g., $\Mod(R)^{\omega}$);
+\item for dualizable categories (e.g., $\Mod(R)$ or $\Mod(R,I)$).
+\end{enumerate}
+\end{rem}
+
+\subsection{Verdier duality and 6 functors}
+Let $f\colon Y\to X$ be a continuous map. Then we have an adjunction
+\[
+\begin{tikzcd}
+f^* \colon \Shv(X)\ar[r,shift left] & \ar[l,shift left] \Shv(Y) \noloc f_*.
+\end{tikzcd}
+\]
+If $f$ is locally separated and locally proper (due to Schn\"urer and Soergel), we have another adjunction
+\[
+\begin{tikzcd}
+f_! \colon \Shv(Y)\ar[r,shift left] & \ar[l,shift left] \Shv(X) \noloc f^!.
+\end{tikzcd}
+\]
+Moreover, on $\Shv(X)$ we have a symmetric monoidal structure $\otimes$ and an internal hom $\iHom$.
+
+\begin{defn}
+A commutative algebra $\cat C \in \CAlg(\Pr^L_{\mathrm{st}})$ is called \emph{locally rigid} if:
+\begin{enumerate}[(i)]
+\item The functor $\otimes\colon \cat C\otimes \cat C \to \cat C$ admits a cocontinuous right adjoint $\Delta\colon \cat C \to \cat C\otimes \cat C$ which is a $\cat C$-$\cat C$-bimodule map.\footnote{Note that this is just a \emph{condition} and not additional structure, since $\Delta$ is automatically a lax bimodule map.}
+
+\item $\cat C$ is dualizable; equivalently there exists a counit $\cat C\to \Sp$ for the comultiplication $\Delta$.
+\end{enumerate}
+
+We call $\cat C$ \emph{rigid} if in addition $\one \in \cat C^\omega$.
+\end{defn}
+
+\begin{ex}
+\begin{enumerate}[(a)]
+\item Let $R$ be a commutative ring. Then $\Mod(R)$ is rigid, because we have
+\[
+\begin{tikzcd}
+\Mod(R) \otimes \Mod(R) \ar[r,"\otimes_R"] \ar[d,"\simeq"'] & \Mod(R) \ar[dl,shift left, hook, "\mathrm{res}"] \\
+\Mod(R\otimes_{\SS}R ) \ar[ur,shift left],
+\end{tikzcd}
+\]
+where the upper diagonal map is given by base-change along $m\colon R\otimes_{\SS} R \to R$. 
+
+\item For a homological epi $R\to R/I$ of commutative rings, the category $\Mod(R,I)$ is locally rigid, and it is rigid if and only if $I$ is compact as an $R$-module.
+
+\item A small stable category $\cat C$ is rigid if and only if $\Ind(\cat C)$ is rigid.
+
+\item Let $X \in \LCHaus$. Then $\Shv(X)$ is locally rigid; if moreover $X$ is compact, then $\Shv(X)$ is rigid. To see this, note that we have a commutative diagram
+\[
+\begin{tikzcd}
+\Shv(X) \otimes \Shv(X) \ar[dr,bend left, "\otimes"] \ar[d,"\simeq"'] \\
+\Shv(X\times X)\ar[r,shift left,"\Delta^*"] & \ar[l,shift left,"\Delta_*"] \Shv(X)
+\end{tikzcd}
+\]
+and note that $\Delta_* = \Delta_!$, so that $\Delta_*$ has a right adjoint. The Frobenius identity (that is, the fact that $\Delta_*$ is a bimodule map) follows from the projection formula.
+
+The counit is given by $\Gamma_c = p_!\colon \Shv(X) \to \Sp$, where $p\colon X\to \mathrm{pt}$ is the tautological map.
+
+\item The category $D(\ZZ)^\wedge_p$ is compactly generated and locally rigid. But it is not rigid, because the unit $\ZZ$ is not compact.
+\end{enumerate}
+\end{ex}
+
+\begin{prop}
+\begin{enumerate}[(1)]
+\item If $\cat C$ is locally rigid, then
+\[
+\Sp \xrightarrow{\mathrm{unit}} \cat C \xrightarrow{\Delta} \cat C\otimes \cat C
+\]
+exhibits $\cat C$ as a Frobenius algebra (i.e., the composition is the coevaluation for a self-duality on $\cat C$). In particular, $\cat C \simeq \cat C^\vee$.
+
+\item The counit $\cat C\to \Sp$ (which is dual to the unit $\Sp \to \cat C$) is equivalent to 
+\begin{align*}
+\cat C &\to \Sp, \\
+X &\mapsto \map^{\mathrm{ca}}(\one,\blank) \simeq \Gamma_c(\blank).
+\end{align*}
+The self-duality is exhibited by the equivalence
+\begin{align*}
+\cat C &\isoto \Fun^L(\cat C, \Sp), \\
+X &\mapsto \map^{\mathrm{ca}}(\one, X\otimes\blank), \\
+(F\otimes \id)(\Delta(\one)) &\mapsfrom F.
+\end{align*}
+\end{enumerate}
+\end{prop}
+
+\begin{ex}
+We have 
+\[
+\Shv(X) \simeq \Shv(X)^\vee \simeq \coShv(X),
+\]
+which is known as Verdier duality. The evaluation map for this duality is given by
+\begin{align*}
+\Shv(X) \otimes \Shv(X) &\to \Sp, \\
+(\sheaf F, \sheaf G) &\mapsto \Gamma_c(\sheaf F\otimes \sheaf G).
+\end{align*}
+For a map $f\colon Y\to X$ in $\LCHaus$, the functor $f_!$ is dual to $f^*$.
+\end{ex}
+
+\begin{prop}
+Let $\cat C$ be locally rigid and $\cat M$ a $\cat C$-module (in $\Pr^L_{\mathrm{st}}$). Then $\cat M$ is dualizable relative to $\cat C$ (i.e., dualizable in $\Mod_{\cat C}(\Pr^L_{\mathrm{st}})$) if and only if $\cat M$ is dualizable in $\Pr^L_{\mathrm{st}}$.
+\end{prop}
+
+\begin{ex}
+A $\ZZ$-linear stable category is dualizable over $\ZZ$ if and only if it is dualizable over $\SS$.
+\end{ex}
+
+\begin{defn}
+A morphism $f\colon x\to y$ in a closed symmetric monoidal category $\cat C$ is called \emph{trace class} if it lifts as follows:
+\[
+\begin{tikzcd}
+& \iHom(x,\one) \otimes y \ar[d] \\
+\one \ar[ur,dashed,"\exists"] \ar[r,"f"'] & \iHom(x,y).
+\end{tikzcd}
+\]
+\end{defn}
+
+\begin{thm}[Clausen, Ramzi, Scholze]
+Let $\cat C \in \CAlg(\Pr^L_{\mathrm{st}})$, such that the underlying category is dualizable, then:
+\begin{enumerate}[(a)]
+\item $\cat C$ is locally rigid if and only if 
+\[
+\{\text{compact morphisms}\} \subseteq \{\text{trace class morphisms}\}.
+\]
+\item The unit $\one\in \cat C$ is compact if and only if 
+\[
+\{\text{trace class morphisms}\} \subseteq \{\text{compact morphisms}\}.
+\]
+\item $\cat C$ is rigid if and only if the classes of compact morphisms and of trace class morphisms agree.
+\end{enumerate}
+\end{thm}
+
+\begin{ex}
+In order to see that $\Shv(X)$ is locally rigid, it thus suffices to see that the maps $\Sigma^\infty_+\ul U \to \Sigma^\infty_+\ul V$ are trace class for all $U \ssubset V$.
+\end{ex}
+
+\begin{defn}
+Let $\cat A \to \cat B$ be a map in $\CAlg(\Pr^L_{\mathrm{st}})$. Then $\cat B$ is called \emph{locally rigid over $\cat A$} if:
+\begin{enumerate}[(i)]
+\item The multiplication $\cat B\otimes_{\cat A}B \to \cat B$ has an $\cat A$-linear and cocontinuous right adjoint $\Delta \colon \cat B\to \cat B\otimes_{\cat A} \cat B$ which is a $\cat B$-$\cat B$-bimodule map.
+
+\item $\cat B$ is dualizable relative to $\cat A$ (i.e., $\cat B$ is dualizable in $\Mod_{\cat A}(\Pr^L_{\mathrm{st}})$); equivalently, there exists a counit $\cat B\to \cat A$ for the comultiplication $\Delta$.
+\end{enumerate}
+\end{defn}
+
+\begin{ex}
+Let $f\colon Y\to X$ be a locally proper and separated map of topological spaces. Then $\Shv(Y)$ is locally rigid over $\Shv(X)$.
+\end{ex}
+
+\begin{prop}
+Let $\cat A\to \cat B$ be locally rigid. 
+\begin{enumerate}[(a)]
+\item A $\cat B$-module $\cat M$ is dualizable over $\cat B$ if and only if $\cat M$ is dualizable over $\cat A$.
+
+\item Given an algebra map $\cat B\to \cat C$, then $\cat C$ is locally rigid relative to $\cat B$ if and only if $\cat C$ is locally rigid relative to $\cat A$.
+\end{enumerate}
+\end{prop}
+
+\begin{thm}
+The category $\CAlg(\Pr^L_{\mathrm{st}})^\op$ carries a 6-functor formalism in which the exceptional maps are locally rigid maps.
+\end{thm}
 
 
 \end{document}
