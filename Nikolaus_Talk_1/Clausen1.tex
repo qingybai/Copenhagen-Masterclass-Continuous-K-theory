@@ -23,6 +23,7 @@
 \newcommand{\CC}{\mathbb{C}}
 \newcommand{\FF}{\mathbb{F}}
 \renewcommand{\AA}{\mathbb{A}}
+\renewcommand{\SS}{\mathbb{S}}
 \newcommand{\GG}{\mathbb{G}}
 \newcommand{\PP}{\mathbb{P}}
 
@@ -41,7 +42,7 @@
 \newcommand{\sheaf}[1]{\mathcal{#1}}
 
 \renewcommand{\setminus}{\smallsetminus}
-\renewcommand{\emptyset}{\vanothing}
+\renewcommand{\emptyset}{\varnothing}
 \newcommand{\ssubset}{\Subset} 
 \newcommand{\ssupset}{\Supset} 
 \newcommand{\op}{\mathrm{op}}
@@ -62,7 +63,9 @@
 
 \DeclareMathOperator{\Spec}{Spec}
 \DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\coker}{coker}
 \DeclareMathOperator{\fib}{fib}
+\DeclareMathOperator{\Man}{Man}
 \DeclareMathOperator{\Closed}{Closed}
 \DeclareMathOperator{\id}{id}
 \DeclareMathOperator{\Idem}{Idem}
@@ -108,6 +111,7 @@
 
 \newtheorem{thm}{Theorem}[section]
 \newtheorem{prop}[thm]{Proposition}
+\newtheorem{mainconj}[thm]{Main Conjecture}
 \newtheorem{lem}[thm]{Lemma}
 \newtheorem{cor}[thm]{Corollary}
 
@@ -635,6 +639,206 @@ Hence, for a complex manifold $M$, we can define
 D_{\mathrm{qcoh}}(M) \supseteq \Nuc(M)
 \]
 such that $\sheaf F$ is nuclear if and only if $\sheaf F(K)$ is a nuclear $\O(K)$-module for all compact $K$ or, equivalently, $\sheaf F(K)$ is nuclear over $\CC^{\mathrm{gas}}$.
+
+\section{Talk 4: Cohomology theories on complex manifolds (joint with P. Scholze)}
+
+\begin{thm}
+If $R\neq 0$ is pointwise bounded, then there exists a $\CC$-algebra morphism $R(*) \to \CC$.
+\end{thm}
+\begin{proof}
+If there were no such algebra morphism, then $R = \O(\cat M_B(R)) = \O(\emptyset) = 0$.
+
+\textbf{Challenge:} Give a direct proof.
+\end{proof}
+
+\begin{defn}
+We put
+\[
+\begin{tikzcd}[column sep=small]
+\Shv(\Man_{\CC}; \Sp) \ar[d,"\simeq"'] \ar[r,equals] & \set{\sheaf F\colon \Man_{\CC}^{\op} \to \Sp}{\forall M\in \Man_{\CC}, \text{$\sheaf F\big|_{\Open(M)}$ is a sheaf}} \\
+\Shv(\O(C)\textnormal{'s};\Sp) \ar[r,equals] & \set{\sheaf F\colon \{\O(C)\textnormal{'s}\} \to \Sp}{\forall C, \text{$\sheaf F\big|_{\Closed(C)}$ is a $\cat K$-sheaf}},
+\end{tikzcd}
+\]
+where the $\O(C)$'s, for $C\subseteq \CC^d$ compact Stein, live in $\CAlg(D_{\ge0}(\CC^{\mathrm{gas}}))$.
+\end{defn}
+
+\begin{ex}
+\begin{enumerate}[(1)]
+\item For all $p\in \ZZ$ we have $\ZZ(p)_{\D}(M) = \R\Gamma(M;\ZZ(p)_{\D})$.
+
+\item $K^{\mathrm{nuc}}$: we have $K^{\mathrm{nuc}}(\O(C)) = K^{\mathrm{cont}}(\Nuc(\O(C)))$.
+
+\item K-theory analog (Karoubi)
+\[
+\begin{tikzcd}
+K^{\mathrm{Del}} \ar[d] \ar[r] \ar[dr,phantom, very near start, "\lrcorner"] & \mathrm{HC}^-(\O(K)/\CC^{\mathrm{gas}}) \ar[d] \\
+\ul{KU} \ar[r] & \mathrm{HP}(\O(K)/\CC^{\mathrm{gas}}),
+\end{tikzcd}
+\]
+where the bottom map is induced by $ku \to \mathrm{HP}(\CC/\CC^{\mathrm{gas}}) = \prod_{n\in\ZZ} \CC(2n)$.
+
+There exists a filtration on $K^{\mathrm{Del}}$ with associated graded pieces $\ZZ(p)_{\D}[2p]$, which rationally splits:
+\[
+K^{\mathrm{Del}}_{\QQ} = \bigoplus_p \QQ(p)_{\D}[2p].
+\]
+\end{enumerate}
+\end{ex}
+
+\begin{thm}
+There exists a natural map $K^{\mathrm{nuc}} \to K^{\mathrm{Del}}$.
+\end{thm}
+
+\begin{mainconj}[Modified Hodge Conjecture]
+The map above is an isomorphism.
+\end{mainconj}
+
+\begin{thm}
+In any case, $K^{\mathrm{Del}}$ (and all three terms in its definition) is an invariant of $\Nuc(\O(K))$ (as a $\Nuc(\CC^{\mathrm{gas}})$-linear category).
+\end{thm}
+
+We obtain proper pushforward, which rather easily implies Riemann--Roch theorems.
+
+\begin{defn}
+A sheaf $\sheaf F\in \Shv(\Man_{\CC}; \Sp)$ is \emph{$\DD^0$-invariant} if the pullback map
+\[
+\sheaf F(M) \isoto \sheaf F(\DD^0\times M)
+\]
+is an isomorphism for all $M\in \Man_{\CC}$.
+\end{defn}
+
+\begin{thm}
+\begin{enumerate}[(a)] 
+\item For $\sheaf F\in \Shv(\Man_{\CC}; \Sp)$ the following are equivalent:
+\begin{enumerate}[(1)]
+\item $\sheaf F$ is $\DD^0$-invariant.
+\item  $\sheaf F$ (viewed as a $\cat K$-sheaf) is $[0,1]$-invariant (where $[0,1] \subset \CC$).
+
+\item For all $d\ge0$, the map $\sheaf F(\O_{\CC^d, 0}) \isoto \sheaf F(\CC)$ is an isomorphism.
+\end{enumerate}
+
+\item The functor $\Shv_{\DD^0}(\Man_{\CC}; \Sp)\isoto \Sp$, $\sheaf F\mapsto \sheaf F(*)$ is an equivalence.
+
+\item The inclusion $\Shv_{\DD^0}(\Man_{\CC};\Sp)\subseteq \Shv(\Man_{\CC}; \Sp)$ has a left and a right adjoint.
+
+The right adjoint is given by $\sheaf F\mapsto (M\mapsto \R\Gamma(M; \sheaf F(*)))$.
+
+The left adjoint is given by $\sheaf F \mapsto \sheaf F^h\coloneqq \varinjlim_{[n]\in \Delta} \sheaf F(\blank \times \Delta^n)$, where $\sheaf F$ is viewed as a $\cat K$-sheaf.
+\end{enumerate}
+\end{thm}
+
+\begin{ex}
+\begin{enumerate}[(i)]
+\item Let $M\in \Man_{\CC}$. Then
+\[
+\SS[h_M]^h = \R\Gamma(\blank; \SS(\Pi_\infty M)).
+\]
+
+\item The \enquote{homotopification} of the sheafification $\bigl(\wt{K(\Vect(\blank))}\bigr)^h$ identifies with $\R\Gamma(\blank, ku)$.
+\end{enumerate}
+\end{ex}
+
+\begin{thm}\label{Clausen:thm}
+\begin{enumerate}[(a)]
+\item We have
+\[
+(K^{\mathrm{nuc}})^h = \R\Gamma(\blank; KU).
+\]
+
+\item The map $K^{\mathrm{nuc}} \to (K^{\mathrm{nuc}})^h$ is an isomorphism in degrees $\le 0$ (on any $C$).
+
+\item $(\mathrm{HC}^-)^h = \mathrm{HP}$.
+\end{enumerate}
+\end{thm}
+
+The theorem implies the existence of a natural trace map
+\[
+\begin{tikzcd}
+K^{\mathrm{nuc}} \ar[dr] \ar[drr, bend left,"{\text{$\exists$ trace}}"] \ar[ddr, bend right] &[-1em] \\[-1em]
+& K^{\mathrm{Del}} \ar[r] \ar[d] & \mathrm{HC}^- \ar[d] \\
+& (K^{\mathrm{nuc}})^h \ar[r] & (\mathrm{HC}^-)^h,
+\end{tikzcd}
+\]
+which uses rigidity of $\Nuc(\CC^{\mathrm{gas}})$.
+
+\begin{cor}
+The following are equivalent:
+\begin{enumerate}[(a)]
+\item The modified Hodge conjecture holds.
+\item $\fib(K^{\mathrm{nuc}} \to \mathrm{HC}^-)$ is a $\DD^0$-invariant sheaf.
+
+\item $\dagger$-rigidity: the commutative square
+\[
+\begin{tikzcd}
+K^{\mathrm{nuc}}(\O_{\CC^\dagger,0}) \ar[d] \ar[r] \ar[dr,phantom, very near start, "\lrcorner"] & \mathrm{TC}^-(\O_{\CC^d, 0}/\CC^{\mathrm{gas}}) \ar[d] \\
+K^{\mathrm{nuc}}(\CC) \ar[r] & \mathrm{TC}^-(\CC/\CC)
+\end{tikzcd}
+\]
+is a pullback.
+\end{enumerate}
+\end{cor}
+
+\begin{rem}
+Replace $\CC^{\mathrm{gas}}$ by $\QQ_p^{\mathrm{solid}}$. Then $\dagger$-rigidity is true!
+\end{rem}
+
+\begin{rem}[Conjecture]
+$\mathrm{HH}(\O(C)/\CC^{\mathrm{gas}}) = \mathrm{HH}^{\mathrm{cont}}(\Nuc(\O(C))/\QQ)$.
+
+Again, this is true in the non-archimedean analog (due to Cordova).
+\end{rem}
+
+\begin{proof}[Proof of \cref{Clausen:thm}]
+\textbf{Step 1:} For (a), use the commutative diagram
+\[
+\begin{tikzcd}
+ku \ar[r,equals] &[-1em]  (K^{\mathrm{vect}})^h \ar[d] \ar[r] & (K^{\mathrm{nuc}})^h \\
+& KU \ar[ur,dashed, "\exists"'],
+\end{tikzcd}
+\]
+i.e., $\beta\in \pi_2(ku)$ is invertible in $(K^{\mathrm{nuc}})^h$.
+
+For the proof, use GAGA: If $X$ is a smooth proper scheme over $\CC$, then
+\[
+D_{\mathrm{qc}}(X) \otimes_{D(\CC(*))} \Nuc(\CC^{\mathrm{gas}}) \isoto \Nuc_{\mathrm{qc}}(X^{\mathrm{an}}).
+\]
+Apply this to $X = \PP^1$. Then $\Nuc(\PP^1) = \langle \Nuc(\CC^{\mathrm{gas}}), \Nuc(\CC^{\mathrm{gas}})\rangle$, which implies
+\[
+K^{\mathrm{nuc}}(\PP^1\times C) \simeq K^{\mathrm{nuc}}(C) \oplus K^{\mathrm{nuc}}(C).
+\]
+Applying $(\blank)^h$, we deduce an inverse for $\beta$.
+\medskip
+
+\textbf{Step~2:} The sheaf $\pi_0 K^{\mathrm{nuc}}(\O(\blank))$ is $[0,1]$-invariant.
+\begin{proof}
+The map $K(\O(C)(*)) \to K^{\mathrm{nuc}}(C) = K^{\mathrm{cont}}(\Nuc(\O(C)))$ is an isomorphism on $\pi_0$ (and only on $\pi_0$!). \enquote{The proof is tricky but sort of straightforward.}
+
+By Grauert--Oka, $K_0(\Vect(\O(C)))$ is homotopy invariant.
+\end{proof}
+
+\textbf{Step~3:} The sheaf $\tau_{\le 0}K^{\mathrm{nuc}}$ is $[0,1]$-invariant.
+
+For the proof, one uses Bass delooping to compute 
+\[
+K^{\mathrm{nuc}}_{-1}(C) = \coker\bigl(K_0^{\mathrm{nuc}}(\DD_+\times C) \oplus K_0^{\mathrm{nuc}}(\DD_-\times C) \to K_0^{\mathrm{nuc}}(S^1\times C) \bigr)
+\]
+and then do descending induction.
+\medskip
+
+\textbf{Step 4:} The map $K^{\mathrm{nuc}} \to (K^{\mathrm{nuc}})^h$ is an isomorphism on $\tau_{\le0}$.
+
+We have $(K^{\mathrm{nuc}})^h = \varinjlim K^{\mathrm{nuc}}(\blank\times \Delta^n)$, so the claim follows immediately from Step~3.
+\medskip
+
+\textbf{Step 5:} We have $(K^{\mathrm{nuc}})^h = \R\Gamma(\blank; (K^{\mathrm{nuc}})^h(*))$, which is a $KU$-module by Step~1, hence is 2-periodic. But on the other hand, the map $K^{\mathrm{nuc}} \to (K^{\mathrm{nuc}})^h$ is an isomorphism on $\pi_0$ and $\pi_{-1}$.
+
+It thus suffices to show 
+\begin{align*}
+\pi_0K^{\mathrm{nuc}}(\CC) &= \ZZ, \\
+\pi_{-1}K^{\mathrm{nuc}}(\CC) &= 0.
+\end{align*}
+\end{proof}
+
+
 
 
 

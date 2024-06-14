@@ -162,7 +162,7 @@ $\cat C$ is \emph{dualizable} if $\cat C$ is dualizable in $(\Pr^L_{\mathrm{st}}
 \item A map $x\to y$ in $\cat C$ is called \emph{(weakly) compact} if for every filtered colimit $d = \colim_i d_i$ and every map $y\to d$, the composite $x\to y\to d$ factors over some $d_{i_0}$:
 \[
 \begin{tikzcd}
-x \ar[d,dashed] \ar[r] & y \ar[d] \\
+x \ar[d,dashed,"\exists"'] \ar[r] & y \ar[d] \\
 d_{i_0} \ar[r] & \colim_i d_i.
 \end{tikzcd}
 \]
@@ -268,11 +268,11 @@ Let $\cat C, \cat D$ be dualizable categories.
 \begin{enumerate}[(a)]
 \item An object $x\in \cat C$ is compactly exhaustible if and only if $x$ is $\omega_1$-compact.
 
-\item A functor $F\colon \cat C\to \cat D$ in $\Pr^L$ is strongly continuous (meaning that $F$ admits a right adjoint that preserves colimits) if and only if $F$ preserves compact morphisms, if and only if the following diagram commutes:
+\item A functor $F\colon \cat C\to \cat D$ in $\Pr^L$ is strongly left adjoint (meaning that $F$ admits a right adjoint that preserves colimits) if and only if $F$ preserves compact morphisms, if and only if the following diagram commutes:
 \[
 \begin{tikzcd}
 \Ind(\cat C) \ar[r,"\Ind(F)"] & \Ind(\cat D) \\
-\cat C \ar[u,"\jhat"] \ar[r,"F"'] & \cat D \ar[ul,Rightarrow,shorten=4mm, "\sim"'] \ar[u,"\jhat"'].
+\cat C \ar[u,"\jhat"] \ar[r,"F"'] & \cat D \ar[ul,Rightarrow,shorten=4mm, sloped, "\sim"] \ar[u,"\jhat"'].
 \end{tikzcd}
 \]
 
@@ -287,6 +287,7 @@ Let $\cat C, \cat D$ be dualizable categories.
 \[
 \cat C \to \Ind(\cat C^{\omega_1}) \to \Ind(\Calk^{\mathrm{cont}}(\cat C)),
 \]
+where $\Calk^{\mathrm{cont}}(\cat C) \coloneqq (\Ind(\cat C^{\omega_1})/\cat C)^{\omega}$, 
 and denote $p\colon \cat C^{\omega_1} \to \Calk^{\mathrm{cont}}(\cat C)$ the projection. Then
 \[
 \map_{\Calk(\cat C)}(px, py) = \map_{\cat C}(x,y) / \map_{\cat C}^{\mathrm{ca}} (x,y).
@@ -316,7 +317,7 @@ Let $\cat C$ be a dualizable category. Recall that we have a resolution
 \[
 \cat C \to \Ind(\cat C^{\omega_1}) \to \Ind\Calk^{\mathrm{cont}}(\cat C).
 \]
-The category $\Pr^L_{\mathrm{dual}}$ of dualizable categories with strongly continuous functors is itself a presentable category (due to Ramzi), and the forgetful functor $\Pr^L_{\mathrm{dual}} \to \Pr^L$ preserves colimits. 
+The category $\Pr^L_{\mathrm{dual}}$ of dualizable categories with strongly left adjoint functors is itself a presentable category (due to Ramzi), and the forgetful functor $\Pr^L_{\mathrm{dual}} \to \Pr^L$ preserves colimits. 
 
 \begin{exercise}
 To compute colimits in $\Pr^L$, use $\Pr^L \simeq (\Pr^R)^{\op}$ and use that $\Pr^R \to \Cat$ commutes with limits. Use this to prove that $\Pr^L_{\mathrm{dual}} \to \Pr^L$ commutes with colimits.
@@ -589,7 +590,7 @@ K^{\mathrm{cont}}(\wh{\coShv}(X;\cat C)) &= {KK}^{\mathrm{cont}}(\Shv(X); \cat C
 &\cong \H_{\mathrm{lf}}(X;K^{\mathrm{cont}}(\cat C)) = p_*p^!K^{\mathrm{cont}}(\cat C) \\
 &\cong \Pi_\infty X \otimes K^{\mathrm{cont}}(\cat C) \qquad\text{(if $X$ is compact)}
 \end{align*}
-where $\cat U$ is the universal localizing invariant.
+where $\cat U$ is the universal localizing invariant and $\Pi_\infty X$ denotes the shape of $X$.
 \end{cor}
 
 \begin{prop}
@@ -610,7 +611,7 @@ Is there a \enquote{nice} description of $K_0^{\mathrm{cont}}(\cat C)$?
 \end{question}
 
 \begin{thm}[Bartels--N.]
-There is a strongly continuous functor 
+There is a strongly left adjoint functor 
 \[
 A\colon \wh{\coShv}_{\mathrm{cs}}(X;\cat C) \to \cat C^{\Pi_\infty X} = \Loc(X;\cat C)
 \]
