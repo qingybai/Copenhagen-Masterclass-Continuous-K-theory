@@ -62,6 +62,8 @@
 \DeclareMathOperator{\Spec}{Spec}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\fib}{fib}
+\DeclareMathOperator{\Coh}{Coh}
+\DeclareMathOperator{\TC}{TC}
 \DeclareMathOperator{\Anima}{Ani}
 \DeclareMathOperator{\iHom}{\ul{Hom}}
 \DeclareMathOperator{\End}{End}
@@ -98,10 +100,14 @@
 \DeclareMathOperator{\Rep}{Rep}
 \DeclareMathOperator{\id}{id}
 \DeclareMathOperator{\res}{res}
+\DeclareMathOperator{\TR}{TR}
+\DeclareMathOperator{\Cobar}{Cobar}
 \DeclareMathOperator{\Ker}{Ker}
 \DeclareMathOperator{\QCoh}{QCoh}
+\DeclareMathOperator{\Alg}{Alg}
 \DeclareMathOperator{\Cone}{Cone}
 \DeclareMathOperator{\coev}{coev}
+\DeclareMathOperator{\ev}{ev}
 \DeclareMathOperator{\Mot}{Mot}
 \DeclareMathOperator{\GL}{GL}
 \DeclareMathOperator*{\indinjlim}{\text{``}\varinjlim\text{''}} % todo
@@ -172,7 +178,7 @@ and $\wh{Y}(\RR, 0) = \indinjlim_{\varepsilon>0} (\RR,\varepsilon \lvert\cdot\rv
 
 \item $\Shv(X,\ul{\cat C})$ is compactly assembled, where $X$ is a locally compact Hausdorff space and $\ul{\cat C}$ is a presheaf of dualizable categories.
 
-\item The categories $\Nuc(R_{\wh{I}})$ and $\wh{\Nuc}(R_{\wh{I}})$ of nuclear modules are compactly assembled, and $\Nuc(R_{\wh{I}})^{\omega} = \Perf(R_{\wh{I}})$.
+\item The categories $\Nuc(R_{\wh{I}})$ and $\wt{\Nuc}(R_{\wh{I}})$ of nuclear modules are compactly assembled, and $\Nuc(R_{\wh{I}})^{\omega} = \Perf(R_{\wh{I}})$.
 
 \item Let $R$ be an associative ring and $J\subseteq R$ an ideal which is flat as a right module and satisfying $J^2 = J$. Put
 \[
@@ -186,7 +192,7 @@ We introduce the following notation:
 \begin{itemize}
 \item $\Cat^{\mathrm{idem}}$ is the category of small idempotent complete categories,
 
-\item $\Cat^{\mathrm{perf}}$ is the category of small idempotent complete small stable categories , and 
+\item $\Cat^{\mathrm{perf}}$ is the category of small idempotent complete stable categories, and 
 
 \item $\CompAss$ is the category of compactly assembled categories, where the $1$-morphisms are the strongly continuous functors, i.e., $F\colon \cat C\to \cat D$ such that $F$ commutes with filtered colimits and the diagram
 \[
@@ -603,7 +609,7 @@ $K_0(\Fun(\cat A^\omega, \cat A^\omega)) = \End(\bigoplus_{\QQ}\ZZ)$.
 
 \textbf{Step~3:}
 \begin{prop}
-Let $\cat C$ be a small idempotent-complete stable category with semiorthogonal decomposition
+Let $\cat C$ be a small idempotent-complete stable category with semi-orthogonal decomposition
 \[
 \cat C = \langle \cat A_0, \cat A_1, \dotsc \rangle,
 \]
@@ -826,7 +832,7 @@ Note that for compact $Y\subseteq X$ we have $\ul{\cat C}(Y) = \varinjlim_{U\sup
 \sheaf U_{\mathrm{loc}}(\PSh^{\mathrm{cont}}_{\sheaf K}(X;\ul{\cat C}))
 = \bigoplus_{\substack{V\subseteq X\\ \text{open, compact}}} \sheaf U_{\mathrm{loc}}(\ul{\cat C}(V)).
 \]
-Hint: use the semiorthogonal decomposition $\PSh_{\sheaf K}(X;\ul{\cat C}) = \langle \ul{\cat C}(Y), Y\subset X \text{ compact}\rangle$ and
+Hint: use the semi-orthogonal decomposition $\PSh_{\sheaf K}(X;\ul{\cat C}) = \langle \ul{\cat C}(Y), Y\subset X \text{ compact}\rangle$ and
 \[
 \PSh_{\sheaf K}(X;\ul{\cat C})/\PSh_{\sheaf K}^{\mathrm{cont}}(X;\ul{\cat C}) = \langle \ul{\cat C}(Y), \text{$Y\subset X$ compact but not open}\rangle
 \]
@@ -872,7 +878,7 @@ We say that $\cat A$ is \emph{$\omega_1$-compact} if $\coev(\one) \in (\cat A\ot
 \begin{cor}
 Let $R$ be a noetherian commutative ring and $I\subseteq R$ an ideal. Then
 \[
-K^{\mathrm{cont}}(\wh{\Nuc}(R_{\wh{I}}))\simeq \varprojlim_n K(R/I^{n}).
+K^{\mathrm{cont}}(\wt{\Nuc}(R_{\wh{I}}))\simeq \varprojlim_n K(R/I^{n}).
 \]
 \end{cor}
 
@@ -1078,7 +1084,7 @@ For all $n$, there exists $m>n$ such that $\cat B_n\to \cat B_m$ is trace class 
 
 Together with the theorem, the proposition implies that
 \[
-\Hom(\cat U_{\mathrm{loc}}(\cat A), \cat U_{\mathrm{loc}}(\cat B)) = {KK}(\cat A, \cat C) = \varprojlim_n K(\Fun(\cat B_n, \cat C)).
+\Hom(\cat U_{\mathrm{loc}}(\cat A), \cat U_{\mathrm{loc}}(\cat B)) = \mathit{KK}(\cat A, \cat C) = \varprojlim_n K(\Fun(\cat B_n, \cat C)).
 \]
 
 \begin{ex}
@@ -1099,7 +1105,7 @@ where $\cat B_n$ is finitely presented.
 
 Assuming $I = (f) \subset R$, we get
 \begin{align*}
-K^{\mathrm{cont}}(\wt{\Nuc}(R_{\wh I})) &= {KK}_{\ZZ[x]}(\Perf_{\textnormal{$x$-tors}}(\ZZ[x]), \Perf(R)) \\
+K^{\mathrm{cont}}(\wt{\Nuc}(R_{\wh I})) &= \mathit{KK}_{\ZZ[x]}(\Perf_{\textnormal{$x$-tors}}(\ZZ[x]), \Perf(R)) \\
 &\isoto \varprojlim_n K\bigl(\Fun(D^b_{\mathrm{coh}}(\ZZ[x]/x^n), \Perf(R)) \simeq \varprojlim_n K(R/f^n).
 \end{align*}
 
@@ -1143,6 +1149,245 @@ It remains to show:
 \textstyle{\varprojlim_n^{\mathrm{oplax}}} \cat D_n \Big\backslash \textstyle{\varprojlim_n^{\mathrm{oplax}}} \Ind(\cat D_n)^{\omega_1} \Big/ \varprojlim_n \Ind(\cat D_n)^{\omega_1} \xrightarrow{\textnormal{K-equiv.}} \prod_n \Calk_{\omega_1}(\cat D_n).
 \]
 \end{proof}
+
+\section{Talk 6: Rigidity of \texorpdfstring{$\Mot^{\mathrm{loc}}$}{Motloc}}
+
+\begin{thm}
+Let $\cat C$ be a rigid symmetric monoidal category. Then $\Mot_{\cat C}^{\mathrm{loc}}$, i.e., the target of the universal localizing invariant $\cat U_{\mathrm{loc}} \colon \Cat^{\mathrm{perf}}_{\cat C}\to \Mot^{\mathrm{loc}}_{\cat C}$ commuting with filtered colimits, is rigid.
+\end{thm}
+
+\begin{cor}
+The category $\Mot_{\cat C}^{\mathrm{loc}}$ is dualizable (but in general not compactly generated).
+\end{cor}
+
+\textbf{Expectation:} If $\cat C\neq 0$, then $\Mot_{\cat C}^{\mathrm{loc}}$ is not compactly generated. This is known to hold for $\cat C = D(\QQ[x])$.
+\bigskip
+
+Consider the case $\cat C = \Mod(k)$ for some $\EE_\infty$-ring $k$. Recall the following definitions:
+\begin{defn}[Kontsevich]
+Let $\cat D$ be a dualizable $k$-linear category.
+\begin{enumerate}[(1)]
+\item $\cat D$ is called \emph{proper} over $k$ if $\ev\colon \cat D\otimes_k \cat D^\vee \to \Mod(k)$ is strongly continuous.
+
+\item $\cat D$ is called \emph{smooth} over $k$ if $\coev\colon \Mod(k)\to \cat D\otimes_k \cat D^\vee$ is strongly continuous, i.e., $\coev(k)$ is compact.
+\end{enumerate}
+
+A category $\cat A \in \Cat^{\mathrm{perf}}_k$ is called \emph{smooth} or \emph{proper} if $\Ind(\cat A)$ is.
+\end{defn}
+
+Note that $\Cat^{\mathrm{perf}}_k$ is compactly generated.
+
+\begin{prop}[TV]
+If $\cat A$ is a finitely presented (compact) category, then $\cat A$ is smooth.
+
+If $\cat A$ is smooth and proper, then $\cat A$ is finitely presented.
+\end{prop}
+
+Let $\cat A = \Perf(A)$, where $A$ is a finitely presented object of $\Alg_{\EE_1}(\Mod(k))$. Then for all ind-systems $(M_i)_i$ in $\BiMod(A,A)$, we have
+\begin{align*}
+\Map_{\BiMod(A,A)}(\Omega_{A/k}, \varinjlim_i M_i) &\simeq 
+\Mod_{\Alg_{\EE_1}(\Mod(A))}(A, A\oplus \varinjlim_i M_i) \\
+&\simeq \varinjlim_i \Map_{\Alg_{/A}}(A, A\oplus M_i) \\
+&\simeq \varinjlim_i \Map_{\BiMod(A,A)}(\Omega_{A/k}, M_i).
+\end{align*}
+This implies $\Omega_{A/k} \coloneqq \fib(A\otimes A\to A) \in \Perf(A\otimes A^\op)$.
+
+\begin{defn}
+A $k$-linear category $\cat B \in \Cat_k^{\mathrm{perf}}$ is called \emph{nuclear} if for all finitely presented categories $\cat A$ the natural map
+\[
+\Fun_k(\cat A, \Perf(k))\otimes_k \cat B \isoto \Fun_k(\cat A,\cat B)
+\]
+is an isomorphism.
+\end{defn}
+
+\begin{exercise}
+If $\cat A$ is smooth and $\cat B$ is proper, then
+\[
+\Fun_k(\cat A, \Perf(k)) \otimes_k \cat B \isoto \Fun_k(\cat A, \cat B).
+\]
+\end{exercise}
+
+\begin{cor}
+Any proper category is nuclear.
+\end{cor}
+
+To prove rigidity of $\Mot_k^{\mathrm{loc}}$, we need:
+\begin{enumerate}[(i)]
+\item $\cat U_{\mathrm{loc}}(k)$ is compact.\footnote{This is due to BGT.} In fact, one can show $\Map(\cat U_{\mathrm{loc}}(k), \cat U_{\mathrm{loc}}(\cat A)) = K(\cat A)$.
+
+\item The category $\Mot_k^{\mathrm{loc}}$ is generated by objects of the form $\varinjlim(x_1\to x_2\to \dotsb)$ such that the transition maps $x_n\to x_{n+1}$ are trace class.
+\end{enumerate}
+
+Suppose that $\cat B$ is a nuclear object of $(\Cat_k^{\mathrm{perf}})^{\omega_1}$. Then $\cat B \simeq \varinjlim(\cat A_1\to \cat A_2\to\dotsb)$, where each $\cat A_n$ is finitely presented and the transition maps $\cat A_n\to \cat A_{n+1}$ are trace class. Moreover, 
+\[
+\cat U_{\mathrm{loc}}(\cat B) = \varinjlim_n \cat U_{\mathrm{loc}}(\cat A_n),
+\]
+and the transition maps $\cat U_{\mathrm{loc}}(\cat A_n) \to \cat U_{\mathrm{loc}}(\cat A_{n+1})$ are trace class. We only need to show that $\Mot^{\mathrm{loc}}_k$ is generated under colimits by $\cat U_{\mathrm{loc}}(\cat B)$, where $\cat B$ is nuclear and $\omega_1$-compact.
+
+\begin{lem}
+If $\cat A$ is smooth (e.g., finitely presented) and $\cat B \in \Cat^{\mathrm{perf}}_k$, then
+\[
+\begin{tikzcd}
+\Fun_k(\cat A, \Perf(k))\otimes_k \cat B \ar[dr,hook] \ar[rr] & & \Fun_k(\cat A, \cat B) \ar[dl,hook] \\
+& \cat A^\op\otimes_k\cat B
+\end{tikzcd}
+\]
+is fully faithful.
+\end{lem}
+\begin{proof}
+This is an exercise.
+\end{proof}
+
+\begin{cor}
+The class of nuclear objects of $\Cat_k^{\mathrm{perf}}$ is closed under:
+\begin{enumerate}[(a)]
+\item filtered colimits;
+\item semi-orthogonal decompositions;
+\item taking full subcategories; indeed, if $\cat B'\subseteq \cat B$, where $\cat B$ is nuclear, then
+\[
+\begin{tikzcd}
+0 \ar[d] & \\
+\Fun_k(\cat A, \Perf(k))\otimes_k \cat B' \ar[r,hook] \ar[d] & \Fun_k(\cat A, \cat B') \ar[d] \\
+\Fun_k(\cat A, \Perf(k))\otimes_k \cat B \ar[r,"\simeq"] \ar[d] & \Fun_k(\cat A, \cat B) \ar[d] \\
+\Fun_k(\cat A, \Perf(k))\otimes_k (\cat B/\cat B') \ar[d] \ar[r,hook] & \Fun_k(\cat A, \cat B/\cat B') \\
+0
+\end{tikzcd}
+\]
+and this formally implies that $\cat B'$ is nuclear.
+\end{enumerate}
+\end{cor}
+
+Suppose $\cat C = \Perf(R)$. Define a $k$-enriched category $\cat B$ with $\mathrm{ob}(\cat B) = \NN$ and
+\[
+\Hom_{\cat B}(n,m) = \begin{cases}
+R, & \text{if $n<m$,} \\
+k, & \text{if $n=m$,} \\
+0, & \text{if $n>m$.}
+\end{cases}
+\]
+Then we have an exact sequence
+\[
+0\to \Ker \to \Fun_k(\cat B^\op, \Mod(k))^{\omega} \to \Perf(R) \to 0,
+\]
+where $\Ker$ is generated by $\Cone(h_{x_n} \to h_{x_{n+1}})$, and the right map is induced by $h_{x_n} \mapsto R$. (This should be \enquote{familiar} to symplectic geometers.)
+
+By the above, the category $\Fun_k(\cat B^\op, \Mod(k))^\omega$ is nuclear (it has a countable semi-orthogonal decomposition into $\Perf(k)$). Hence, also $\Ker$ is nuclear.
+\bigskip
+
+Let $\cat C$ be a rigid category. We want a good notion of nuclearity with the required properties (in particular, full subcategories of nuclear categories should be nuclear).
+
+\begin{fact}
+The category $\Cat^{\mathrm{perf}}_{\cat C} \simeq \Cat^{\mathrm{cg}}_{\cat C}$ is compactly assembled, and the functor
+\[
+\wh{Y} \colon \Cat_{\cat C}^{\mathrm{perf}} \to \Ind(\Cat^{\mathrm{perf}}_{\cat C})
+\]
+is symmetric monoidal.
+\end{fact}
+
+\begin{defn}
+A category $\cat B$ is called \emph{nuclear} if for any $\cat A \in (\Cat_{\cat C}^{\mathrm{perf}})^{\omega_1}$ such that $\wh{Y}(\cat A) = \varinjlim (\cat A_1\to \cat A_2\to \dotsb)$, the natura lmap
+\[
+\indprojlim_n \iHom_{\cat C}(\cat A_n, \cat C)\otimes \cat B \isoto \indprojlim_n \iHom_{\cat C}(\cat A_n,\cat B)
+\]
+is an isomorphim.
+\end{defn}
+
+The most difficult part is proving that, if $\cat B$ is nuclear, then any subcategory $\cat B' \subseteq \cat B$ is nuclear (where \enquote{subcategory} means \enquote{generated by relatively (to $\cat C$) compact objects}).
+
+We need to show the following: for any small $\cat C$-enriched category $\cat B$ and any compact map $R\to S$ in $\Alg_{\EE_1}(\cat C)$, consider the commutative square
+\[
+\begin{tikzcd}
+\Rep(R,\cat C^\omega) \otimes \cat B \ar[rr] & &[-2em] \Rep(R, \cat B) \\
+\Rep(S, \cat C^\omega)\otimes \cat B \ar[r,"G"'] \ar[u] & \Image(G) \ar[r,phantom, "\subseteq"] \ar[ul,dashed] & \Rep(S, \cat B) \ar[u].
+\end{tikzcd}
+\]
+We want to construct a functor $\Image(G) \to \Rep(R, \cat C^\omega)\otimes \cat B$ such that all triangles commute.
+
+This reduces to proving that there exists a map of $\EE_1$-coalgebras in $\Ind(\BiMod(S,S))$:
+\begin{enumerate}[($*$)]
+\item $Y(S\otimes_RS) \to \wh{Y}(S)$ 
+\end{enumerate}
+such that after applying $\varinjlim$, we get the canonical map $S\otimes_RS\to S$ as $\EE_1$-coalgebras in $\BiMod(S,S)$.
+
+The map $(*)$ reduces to a version of an argument of To\"en--Vaqui\'e for $\indinjlim\limits_i (S\oplus M_i)$.
+
+\begin{thm}
+Let $R$ be a connective $\EE_1$-ring. Then 
+\[
+\Hom_{\Mot^{\mathrm{loc}}}\bigl(\wt{\cat U}_{\mathrm{loc}}(\SS[x]), \cat U_{\mathrm{loc}}(R)\bigr) = \TR(R) = \Omega \varinjlim_n \wt{K}(R[x^{-1}]/x^{-n}).
+\]
+\end{thm}
+\begin{proof}[Idea]
+Prove
+\begin{align*}
+\wt{\cat U}_{\mathrm{loc}}(\SS[x]) &= \Sigma\, \wt{\cat U}_{\mathrm{loc}}(\Perf_{\{\infty\}}(\PP^1_{\SS})) \\
+\intertext{and}
+\Perf_{\{\infty\}}(\PP^1_{\SS}) &= \varinjlim_n \cat A_n,\qquad \text{where $\cat A_n = \Perf(\Cobar(\SS[x^{-1}]/x^{-n})^*)$.}
+\end{align*}
+It then follows that
+\begin{align*}
+\Hom(\Sigma\, \wt{\cat U}_{\mathrm{loc}}(\Perf_{\{\infty\}}(\PP^1_{\SS}), \cat U_{\mathrm{loc}}(R))) &= \Omega \varprojlim_n \wt{K}(\Fun(\cat A_n, \cat U_{\mathrm{loc}}(R[x^{-1}]/x^{-n}))).
+\end{align*}
+
+Next, we use the following
+\begin{lem}
+Suppose $\cat B= \varinjlim_n \cat B_n$ where the transition maps $\cat B_n\to \cat B_{n+1}$ are trace class. Then 
+\begin{align*}
+\Map_{\Mot^{\mathrm{loc}}}(\cat U_{\mathrm{loc}}(\cat B), \cat U_{\mathrm{loc}}(\cat C)) &= \varprojlim_n K(\Fun(\cat B_n, \cat C)) \\
+&= \varprojlim_n K(\Fun(\cat B_n, \Sp^{\omega})\otimes \cat C).
+\end{align*}
+\end{lem}
+\end{proof}
+
+\begin{thm} 
+Consider a smooth scheme $X$ over $k$, and suppose that there exists a smooth compactification $X\subset \ol{X}$. Then
+\[
+\mathit{KK}^{\cat K}(\Perf(X), \Perf(k)) = \fib\bigl(K(\ol{X}) \to K^{\mathrm{cont}}(\ol{X}_{\wh{(\ol X\setminus X)}})\bigr)
+\simeq \fib\bigl( K(X) \to K^{\mathrm{cont}}(\wh{X}_{\infty})\bigr).
+\]
+\end{thm}
+
+\begin{thm}
+Suppose that $k$ is a regular noetherian ring and $X$ is a proper scheme over $k$. Then
+\[
+\mathit{KK}^{\cat K}(\Perf(X), \Perf(k)) = G(X) = K(\Coh X).
+\]
+\end{thm}
+
+Consider the following functors:
+\[
+\Mot^{\mathrm{loc, cyc}} \xrightarrow{j_!} \Mot^{\mathrm{loc}} \xrightarrow{i^*} \Mot^{\mathrm{loc}, \AA^1} = \Mod(\lvert\cat U_{\mathrm{loc}}(\Delta)\rvert).
+\]
+
+\begin{thm}
+For a connective $\EE_1$-ring $R$ we have
+\[
+\Map(j_!\one, \cat U_{\mathrm{loc}}(R)) = \TC(R).
+\]
+\end{thm}
+
+Suppose $k$ is a $\QQ$-algebra. We have a commutative diagram
+\[
+\begin{tikzcd}
+\Mot_k^{\mathrm{loc}} \ar[r, "\mathrm{HC}^-"] \ar[dr,"\mathrm{HC}^{-,\mathrm{ref}}"'] & \Mod_{\wh{u}}(k[[u]]) \\
+& \Nuc(k[[u]])\ar[u],
+\end{tikzcd}
+\]
+where $\deg u = 2$.
+
+\begin{exercise}
+For $k = \QQ[x]$, we have
+\[
+\mathrm{HC}^{-,\mathrm{ref}}(\QQ[x,x^{-1}]/\QQ[x]) = \O\Bigl(\bigcap_{n>0} \{ \lvert u\rvert \le \lvert x\rvert^n \neq 0\}\Bigr),
+\]
+where the right hand side is not generated by compact objects of $\Nuc(\QQ[x][[u]])$.
+\end{exercise}
+
+\begin{cor}
+$\Mot^{\mathrm{loc}}_{\QQ[x]}$ is not compactly generated.
+\end{cor}
+
+
 
 
 
